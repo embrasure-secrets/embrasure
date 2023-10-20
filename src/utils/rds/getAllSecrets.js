@@ -13,12 +13,13 @@ async function getAllSecrets() {
                 ...secretObj.dataValues,
             };
         });
-        console.table(secretsFormatted);
+        // console.log(secretsFormatted);
+        return secretsFormatted;
     } catch (error) {
         console.error('Error in getting all secrets: ', error);
     }
 }
 
-getAllSecrets();
+// getAllSecrets();
 
 export default getAllSecrets;
