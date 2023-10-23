@@ -5,10 +5,9 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
 
     const params = {
         AllocatedStorage: 20,
-        DBInstanceIdentifier: 'secrets-db5',
+        DBInstanceIdentifier: 'programmatic-setup-test',
         DBInstanceClass: 'db.t3.micro',
         DBName: 'secrets',
-        // this is hard-coded but it shouldn't be
         VpcSecurityGroupIds,
         Engine: 'postgres',
         MasterUsername: 'postgres',

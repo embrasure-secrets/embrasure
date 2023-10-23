@@ -1,9 +1,4 @@
-import {
-    EC2Client,
-    CreateVpcCommand,
-    CreateSubnetCommand,
-    CreateTagsCommand,
-} from '@aws-sdk/client-ec2';
+import { EC2Client, CreateVpcCommand, CreateTagsCommand } from '@aws-sdk/client-ec2';
 
 async function createVpc() {
     const ec2Client = new EC2Client({ region: 'us-east-1' });
@@ -17,7 +12,7 @@ async function createVpc() {
         Tags: [
             {
                 Key: 'Name',
-                Value: 'Test', // Replace with the desired name for your VPC
+                Value: 'Embrasure-VPC',
             },
         ],
     };
