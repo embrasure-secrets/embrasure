@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "Embrasure Secrets Manager Core Features",
     "main": "index.js",
+    "bin": {
+        "embrasure": "./bin/index.js"
+    },
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,9 +23,6 @@
         "url": "https://github.com/Embrasure-Secrets/embrasure/issues"
     },
     "homepage": "https://github.com/Embrasure-Secrets/embrasure#readme",
-    "bin": {
-        "embrasure": "./bin/index.js"
-    },
     "devDependencies": {
         "@babel/cli": "^7.23.0",
         "@babel/core": "^7.23.2",
@@ -37,6 +37,7 @@
     },
     "dependencies": {
         "aws-sdk": "^2.1474.0",
+        "commander": "^11.1.0",
         "dotenv": "^16.3.1",
         "find-config": "^1.0.0",
         "pg": "^8.11.3",
