@@ -33,6 +33,7 @@
         "prettier": "^3.0.3"
     },
     "dependencies": {
+        "@aws-sdk/client-ec2": "^3.433.0",
         "aws-sdk": "^2.1474.0",
         "dotenv": "^16.3.1",
         "pg": "^8.11.3",
