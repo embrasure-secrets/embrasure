@@ -2,4 +2,4 @@
 
 echo Welcome to Embrasure Secrets Manager!
 echo Initializing database...
-node ../init.js
+node ../utils/aws-init/init.js
