@@ -6,7 +6,7 @@ async function createVpc() {
     const createVpcCommand = new CreateVpcCommand({ CidrBlock: '10.0.0.0/16' });
     const response = await ec2Client.send(createVpcCommand);
 
-    // Lines 15 - 26 are just adding a name to the newly created VPC
+    // Code below this point is just adding a name to the newly created VPC
     const tagsParams = {
         Resources: [response.Vpc.VpcId],
         Tags: [
