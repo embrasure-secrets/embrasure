@@ -3,8 +3,8 @@ import Secrets from './model.js';
 /*
 Given a secretKey of type string, 
 the deleteSecret function will delete
-all records in the secrets table that
-have a value in the key column that matches
+one record in the secrets table that
+has the value in the key column that matches
 the secretKey argument
 */
 
@@ -14,10 +14,10 @@ async function deleteSecret(secretKey) {
             where: {
                 key: secretKey,
             },
+            limit: 1,
         });
-        console.log(
-            `Successfully deleted ${numberOfRecordsDeleted} records from the secrets table`
-        );
+        return numberOfRecordsDeleted;
+        // always returns 1
     } catch (error) {
         console.error('Error in deleting secret: ', error);
     }
