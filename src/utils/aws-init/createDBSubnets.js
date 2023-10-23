@@ -14,7 +14,7 @@ async function createSubnets(VpcId) {
     };
 
     const subnetCommand1 = new CreateSubnetCommand(subnetParams1);
-    const subnetCommand2 = new CreateSubnetCommecand(subnetParams2);
+    const subnetCommand2 = new CreateSubnetCommand(subnetParams2);
     try {
         const subnet1 = await Client.send(subnetCommand1);
         const subnet2 = await Client.send(subnetCommand2);
