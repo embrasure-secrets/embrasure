@@ -9,11 +9,20 @@ const client = new Sequelize(
         host: process.env.DB_HOST,
         dialect: 'postgres',
         port: process.env.DB_PORT,
+        // turn off Sequelize's log statements
+        logging: false,
         dialectOptions: {
             ssl: {
                 require: true,
                 rejectUnauthorized: false,
             },
+        },
+        pool: {
+            // Maximum time ms to secure connection
+            acquire: 3000,
+            // Maximum time ms a connection can be idle before exiting
+            // 1 is lowest truthy value
+            idle: 1,
         },
     }
 );
@@ -21,7 +30,7 @@ const client = new Sequelize(
 const testDbConnection = async () => {
     try {
         await client.authenticate();
-        console.log('Connection to the database is successful!');
+        // console.log('Connection to the database is successful!');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
