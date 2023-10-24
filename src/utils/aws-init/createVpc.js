@@ -25,6 +25,7 @@ async function createVpc() {
     const createTagsCommand = new CreateTagsCommand(tagsParams);
     await client.send(createTagsCommand);
 
+    // Code below this point is updating DnsHostnames and DnsSupport properties to true and sending request to aws
     const vpcModifyInput1 = {
         VpcId: response.Vpc.VpcId,
         EnableDnsHostnames: { Value: true },
