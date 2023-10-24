@@ -3,8 +3,8 @@ import {
     CreateRouteTableCommand,
     CreateRouteCommand,
     AssociateRouteTableCommand,
-    CreateTagsCommand,
 } from '@aws-sdk/client-ec2';
+import addNametag from './addNametag';
 
 async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     // Initialize the EC2 client
@@ -38,18 +38,7 @@ async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     await client.send(createRouteCommand);
 
     // Code below this point is just adding a name to the newly created VPC
-    const tagsParams = {
-        Resources: [routeTableId],
-        Tags: [
-            {
-                Key: 'Name',
-                Value: 'Embrasure-Route-Table',
-            },
-        ],
-    };
-
-    const createTagsCommand = new CreateTagsCommand(tagsParams);
-    await client.send(createTagsCommand);
+    addNametag(routeTableId, 'Embrasure-Route-Table');
 }
 
 export default createRouteTable;

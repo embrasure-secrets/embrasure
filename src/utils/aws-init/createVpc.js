@@ -1,9 +1,5 @@
-import {
-    EC2Client,
-    CreateVpcCommand,
-    ModifyVpcAttributeCommand,
-    CreateTagsCommand,
-} from '@aws-sdk/client-ec2';
+import { EC2Client, CreateVpcCommand, ModifyVpcAttributeCommand } from '@aws-sdk/client-ec2';
+import addNametag from './addNametag';
 
 async function createVpc() {
     // Initialize the EC2 client
@@ -12,20 +8,10 @@ async function createVpc() {
     // Create VPC and specify IPv4 CIDR addresses contained by VPC then send request to aws to initialize it
     const createVpcCommand = new CreateVpcCommand({ CidrBlock: '10.0.0.0/16' });
     const response = await client.send(createVpcCommand);
+    const vpcId = response.Vpc.VpcId;
 
-    // Code below this point is just adding a name to the newly created VPC
-    const tagsParams = {
-        Resources: [response.Vpc.VpcId],
-        Tags: [
-            {
-                Key: 'Name',
-                Value: 'Embrasure-VPC-v2',
-            },
-        ],
-    };
-
-    const createTagsCommand = new CreateTagsCommand(tagsParams);
-    await client.send(createTagsCommand);
+    // Function call to add a name to newly constructed VPC
+    addNametag(vpcId, 'Embrasure-VPC-v2');
 
     // Code below this point is updating DnsHostnames and DnsSupport properties to true and sending request to aws
     const vpcModifyInput1 = {

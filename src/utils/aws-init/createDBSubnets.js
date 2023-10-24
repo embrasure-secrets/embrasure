@@ -1,4 +1,5 @@
-import { EC2Client, CreateSubnetCommand, CreateTagsCommand } from '@aws-sdk/client-ec2';
+import { EC2Client, CreateSubnetCommand } from '@aws-sdk/client-ec2';
+import addNametag from './addNametag';
 
 async function createSubnets(VpcId) {
     // Initialize the EC2 client
@@ -26,17 +27,7 @@ async function createSubnets(VpcId) {
         const subnetIds = [subnet1.Subnet.SubnetId, subnet2.Subnet.SubnetId];
         // Build and then send request to add name tags to each subnet
         subnetIds.forEach(async (id, idx) => {
-            const tagsParams = {
-                Resources: [id],
-                Tags: [
-                    {
-                        Key: 'Name',
-                        Value: `Embrasure-Subnet-${idx}`,
-                    },
-                ],
-            };
-            const createTagsCommand = new CreateTagsCommand(tagsParams);
-            await client.send(createTagsCommand);
+            addNametag(id, `Embrasure-Subnet-${idx}`);
         });
         return subnetIds;
     } catch (e) {

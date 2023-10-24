@@ -2,8 +2,8 @@ import {
     EC2Client,
     CreateInternetGatewayCommand,
     AttachInternetGatewayCommand,
-    CreateTagsCommand,
 } from '@aws-sdk/client-ec2';
+import addNametag from './addNametag';
 
 async function createInternetGateway(VpcId) {
     // Initialize the EC2 client
@@ -22,18 +22,7 @@ async function createInternetGateway(VpcId) {
     await client.send(attachInternetGatewayCommand);
 
     // Code below this point is just adding a name to the newly created internet gateway instance
-    const tagsParams = {
-        Resources: [internetGatewayId],
-        Tags: [
-            {
-                Key: 'Name',
-                Value: 'Embrasure-IG',
-            },
-        ],
-    };
-
-    const createTagsCommand = new CreateTagsCommand(tagsParams);
-    await client.send(createTagsCommand);
+    addNametag(internetGatewayId, 'Embrasure-IG');
     return internetGatewayId;
 }
 
