@@ -2,5 +2,20 @@
     "prettier.printWidth": 100,
     "prettier.singleQuote": true,
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "database-1.c3werh5rv09f.us-east-1.rds.amazonaws.com",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "AWS RDS database-1",
+            "database": "postgres",
+            "username": "postgres"
+        }
+    ]
 }
