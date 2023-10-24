@@ -30,6 +30,7 @@ async function createInternetGateway(VpcId) {
 
     const createTagsCommand = new CreateTagsCommand(tagsParams);
     await Client.send(createTagsCommand);
+    return internetGatewayId;
 }
 
 export default createInternetGateway;

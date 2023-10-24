@@ -1,18 +1,19 @@
-import { RDSClient, CreateDBInstanceCommand } from '@aws-sdk/client-rds';
+import { RDSClient, CreateDBInstanceCommand, ModifyDBInstanceCommand } from '@aws-sdk/client-rds';
 
 async function createPostgresInstance(VpcSecurityGroupIds) {
     const client = new RDSClient({ region: 'us-east-1' });
 
     const params = {
         AllocatedStorage: 20,
-        DBInstanceIdentifier: 'programmatic-setup-test',
+        DBInstanceIdentifier: 'embrasure-database',
         DBInstanceClass: 'db.t3.micro',
         DBName: 'secrets',
         VpcSecurityGroupIds,
         Engine: 'postgres',
         MasterUsername: 'postgres',
         MasterUserPassword: 'password',
-        DBSubnetGroupName: 'my-db-subnet-group',
+        DBSubnetGroupName: 'embrasure-db-subnet-group',
+        PubliclyAccessible: true,
     };
 
     try {
@@ -20,6 +21,15 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
 
         const data = await client.send(createDBInstanceCommand);
         console.log('Postgres instance created:', data);
+        // console.log('db ID: ', data.DBInstance.DbiResourceId);
+
+        // const modifyDBInstanceCommand = new ModifyDBInstanceCommand({
+        //     DBInstanceIdentifier: data.DBInstance.DbiResourceId,
+        //     PubliclyAccessible: true,
+        // });
+
+        // await client.send(modifyDBInstanceCommand);
+        // console.log('database set to publicly accessible');
     } catch (error) {
         console.error('Error creating Postgres instance:', error);
     }

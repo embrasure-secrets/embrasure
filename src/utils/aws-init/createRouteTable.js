@@ -10,7 +10,9 @@ async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     const client = new EC2Client({ region: 'us-east-1' });
     const createRouteTableCommand = new CreateRouteTableCommand({
         VpcId,
+        Main: true,
     });
+
     const createRouteTableResponse = await client.send(createRouteTableCommand);
     const routeTableId = createRouteTableResponse.RouteTable.RouteTableId;
 
@@ -45,8 +47,5 @@ async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     const createTagsCommand = new CreateTagsCommand(tagsParams);
     await client.send(createTagsCommand);
 }
-createRouteTable('vpc-05a929e4e88bc8464', 'igw-0561b93c4265ce36b', [
-    'subnet-01a068c17708053f0',
-    'subnet-0a13562d00e637acd',
-]);
+
 export default createRouteTable;
