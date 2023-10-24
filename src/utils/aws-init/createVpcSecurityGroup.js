@@ -4,15 +4,13 @@ import {
     AuthorizeSecurityGroupIngressCommand,
 } from '@aws-sdk/client-ec2';
 
-async function createVpcSecurityGroup(VpcId) {
+async function createVpcSecurityGroup(vpcId) {
     const ec2Client = new EC2Client({ region: 'us-east-1' });
 
     const params = {
-        GroupName: 'opentraffic5',
-        Description: 'Fully open security group',
-        // this is hard-coded, but it shouldn't be
-        // probably need to fetch it dynamically?
-        VpcId,
+        GroupName: 'Embrasure-open-traffic',
+        Description: 'Embrasure created open security group that allows all network traffic in',
+        VpcId: vpcId,
     };
     try {
         const createVpcSecurityGroupCommand = new CreateSecurityGroupCommand(params);
