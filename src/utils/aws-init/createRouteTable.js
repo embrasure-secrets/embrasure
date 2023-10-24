@@ -4,7 +4,7 @@ import {
     CreateRouteCommand,
     AssociateRouteTableCommand,
 } from '@aws-sdk/client-ec2';
-import addNametag from './addNametag';
+import addNametag from './addNametag.js';
 
 async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     // Initialize the EC2 client
@@ -38,7 +38,7 @@ async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
     await client.send(createRouteCommand);
 
     // Code below this point is just adding a name to the newly created VPC
-    addNametag(routeTableId, 'Embrasure-Route-Table');
+    await addNametag(routeTableId, 'Embrasure-Route-Table');
 }
 
 export default createRouteTable;

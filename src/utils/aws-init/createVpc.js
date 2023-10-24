@@ -1,5 +1,5 @@
 import { EC2Client, CreateVpcCommand, ModifyVpcAttributeCommand } from '@aws-sdk/client-ec2';
-import addNametag from './addNametag';
+import addNametag from './addNametag.js';
 
 async function createVpc() {
     // Initialize the EC2 client
@@ -11,7 +11,7 @@ async function createVpc() {
     const vpcId = response.Vpc.VpcId;
 
     // Function call to add a name to newly constructed VPC
-    addNametag(vpcId, 'Embrasure-VPC-v2');
+    await addNametag(vpcId, 'Embrasure-VPC-v2');
 
     // Code below this point is updating DnsHostnames and DnsSupport properties to true and sending request to aws
     const vpcModifyInput1 = {
