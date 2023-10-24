@@ -7,12 +7,16 @@ import {
 } from '@aws-sdk/client-ec2';
 
 async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
+    // Initialize the EC2 client
     const client = new EC2Client({ region: 'us-east-1' });
+
+    // Create Route Table and specify parameters of new route table at the same time
     const createRouteTableCommand = new CreateRouteTableCommand({
         VpcId,
         Main: true,
     });
 
+    // Send request to initialize new route table
     const createRouteTableResponse = await client.send(createRouteTableCommand);
     const routeTableId = createRouteTableResponse.RouteTable.RouteTableId;
 

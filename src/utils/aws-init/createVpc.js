@@ -6,8 +6,10 @@ import {
 } from '@aws-sdk/client-ec2';
 
 async function createVpc() {
+    // Initialize the EC2 client
     const client = new EC2Client({ region: 'us-east-1' });
 
+    // Create VPC and specify IPv4 CIDR addresses contained by VPC then send request to aws to initialize it
     const createVpcCommand = new CreateVpcCommand({ CidrBlock: '10.0.0.0/16' });
     const response = await client.send(createVpcCommand);
 

@@ -1,8 +1,10 @@
-import { RDSClient, CreateDBInstanceCommand, ModifyDBInstanceCommand } from '@aws-sdk/client-rds';
+import { RDSClient, CreateDBInstanceCommand } from '@aws-sdk/client-rds';
 
 async function createPostgresInstance(VpcSecurityGroupIds) {
+    // Initialize the RDS client
     const client = new RDSClient({ region: 'us-east-1' });
 
+    // Specify parameters of database instance
     const params = {
         AllocatedStorage: 20,
         DBInstanceIdentifier: 'embrasure-database',
@@ -17,19 +19,11 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
     };
 
     try {
+        // Send request to build database
         const createDBInstanceCommand = new CreateDBInstanceCommand(params);
 
         const data = await client.send(createDBInstanceCommand);
         console.log('Postgres instance created:', data);
-        // console.log('db ID: ', data.DBInstance.DbiResourceId);
-
-        // const modifyDBInstanceCommand = new ModifyDBInstanceCommand({
-        //     DBInstanceIdentifier: data.DBInstance.DbiResourceId,
-        //     PubliclyAccessible: true,
-        // });
-
-        // await client.send(modifyDBInstanceCommand);
-        // console.log('database set to publicly accessible');
     } catch (error) {
         console.error('Error creating Postgres instance:', error);
     }

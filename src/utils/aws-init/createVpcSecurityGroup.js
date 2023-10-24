@@ -5,19 +5,21 @@ import {
 } from '@aws-sdk/client-ec2';
 
 async function createVpcSecurityGroup(vpcId) {
-    const ec2Client = new EC2Client({ region: 'us-east-1' });
+    // Initialize the EC2 client
+    const client = new EC2Client({ region: 'us-east-1' });
 
+    // Specify name, description and associated vpc of new security group
     const params = {
         GroupName: 'Embrasure-open-traffic',
         Description: 'Embrasure created open security group that allows all network traffic in',
         VpcId: vpcId,
     };
     try {
+        // Send request to create the security group to aws
         const createVpcSecurityGroupCommand = new CreateSecurityGroupCommand(params);
-        const response = await ec2Client.send(createVpcSecurityGroupCommand);
-        console.log('Vpc security group created:', response);
-        // response.GroupId
+        const response = await client.send(createVpcSecurityGroupCommand);
 
+        // Set Ingress (incoming requests) rules for security group and then send rules addition request to aws
         const authorizeIngressParams = {
             GroupId: response.GroupId,
             IpPermissions: [
@@ -34,7 +36,7 @@ async function createVpcSecurityGroup(vpcId) {
             authorizeIngressParams
         );
 
-        const authorizeResponse = await ec2Client.send(authorizeSecurityGroupIngressCommand);
+        const authorizeResponse = await client.send(authorizeSecurityGroupIngressCommand);
 
         console.log('Inbound rule added to Vpc security group:', authorizeResponse);
         return authorizeResponse;

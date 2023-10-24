@@ -1,7 +1,10 @@
 import { EC2Client, CreateSubnetCommand, CreateTagsCommand } from '@aws-sdk/client-ec2';
 
 async function createSubnets(VpcId) {
-    const Client = new EC2Client({ region: 'us-east-1' });
+    // Initialize the EC2 client
+    const client = new EC2Client({ region: 'us-east-1' });
+
+    // Specify parameters for two subnets (minimum aws requires for redundancy purposes in an aws subnet group)
     const subnetParams1 = {
         VpcId,
         AvailabilityZone: 'us-east-1a',
@@ -13,12 +16,15 @@ async function createSubnets(VpcId) {
         CidrBlock: '10.0.2.0/24',
     };
 
+    // build aws subnet creation command object
     const subnetCommand1 = new CreateSubnetCommand(subnetParams1);
     const subnetCommand2 = new CreateSubnetCommand(subnetParams2);
     try {
-        const subnet1 = await Client.send(subnetCommand1);
-        const subnet2 = await Client.send(subnetCommand2);
+        // send subnet build request to aws
+        const subnet1 = await client.send(subnetCommand1);
+        const subnet2 = await client.send(subnetCommand2);
         const subnetIds = [subnet1.Subnet.SubnetId, subnet2.Subnet.SubnetId];
+        // Build and then send request to add name tags to each subnet
         subnetIds.forEach(async (id, idx) => {
             const tagsParams = {
                 Resources: [id],
@@ -30,7 +36,7 @@ async function createSubnets(VpcId) {
                 ],
             };
             const createTagsCommand = new CreateTagsCommand(tagsParams);
-            await Client.send(createTagsCommand);
+            await client.send(createTagsCommand);
         });
         return subnetIds;
     } catch (e) {
