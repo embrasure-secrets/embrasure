@@ -8,6 +8,7 @@
     },
     "type": "module",
     "scripts": {
+        "start": "nodemon --exec babel-node src/api/index.js",
         "test": "jest"
     },
     "repository": {
@@ -26,6 +27,7 @@
     "devDependencies": {
         "@babel/cli": "^7.23.0",
         "@babel/core": "^7.23.2",
+        "@babel/node": "^7.22.19",
         "@babel/preset-env": "^7.23.2",
         "eslint": "^8.51.0",
         "eslint-config-airbnb": "^19.0.4",
@@ -42,7 +44,9 @@
         "aws-sdk": "^2.1474.0",
         "commander": "^11.1.0",
         "dotenv": "^16.3.1",
+        "express": "^4.18.2",
         "find-config": "^1.0.0",
+        "nodemon": "^3.0.1",
         "pg": "^8.11.3",
         "sequelize": "^6.33.0"
     }
