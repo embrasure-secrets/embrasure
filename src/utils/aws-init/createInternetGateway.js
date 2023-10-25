@@ -20,7 +20,7 @@ async function createInternetGateway(VpcId) {
         VpcId,
     });
     await client.send(attachInternetGatewayCommand);
-
+    console.log('Internet Gateway created');
     // Code below this point is just adding a name to the newly created internet gateway instance
     await addNametag(internetGatewayId, 'Embrasure-IG');
     return internetGatewayId;

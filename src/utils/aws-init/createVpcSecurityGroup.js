@@ -10,8 +10,9 @@ async function createVpcSecurityGroup(vpcId) {
 
     // Specify name, description and associated vpc of new security group
     const params = {
-        GroupName: 'Embrasure-open-traffic',
-        Description: 'Embrasure created open security group that allows all network traffic in',
+        GroupName: 'Embrasure-postgres-traffic-only',
+        Description:
+            'Embrasure created open security group that only allows postgres database communication in',
         VpcId: vpcId,
     };
     try {
@@ -19,27 +20,26 @@ async function createVpcSecurityGroup(vpcId) {
         const createVpcSecurityGroupCommand = new CreateSecurityGroupCommand(params);
         const response = await client.send(createVpcSecurityGroupCommand);
 
-        // Set Ingress (incoming requests) rules for security group and then send rules addition request to aws
-        const authorizeIngressParams = {
+        // Set Ingress rules for security group and then send rules addition request to aws
+        const authorizeSecurityParams = {
             GroupId: response.GroupId,
             IpPermissions: [
                 {
-                    IpProtocol: '-1',
-                    FromPort: -1,
-                    ToPort: -1,
+                    IpProtocol: 'tcp',
+                    FromPort: 5432,
+                    ToPort: 5432,
                     IpRanges: [{ CidrIp: '0.0.0.0/0' }],
                 },
             ],
         };
 
         const authorizeSecurityGroupIngressCommand = new AuthorizeSecurityGroupIngressCommand(
-            authorizeIngressParams
+            authorizeSecurityParams
         );
+        const authorizeIngressResponse = await client.send(authorizeSecurityGroupIngressCommand);
+        console.log('Inbound rule added to Vpc security group');
 
-        const authorizeResponse = await client.send(authorizeSecurityGroupIngressCommand);
-
-        console.log('Inbound rule added to Vpc security group:', authorizeResponse);
-        return authorizeResponse;
+        return authorizeIngressResponse;
     } catch (error) {
         console.error('Could not create Vpc security group with inbound rule:', error);
     }

@@ -27,6 +27,7 @@ async function createVpc() {
 
     const command2 = new ModifyVpcAttributeCommand(vpcModifyInput2);
     await client.send(command2);
+    console.log('VPC created');
     return response;
 }
 
