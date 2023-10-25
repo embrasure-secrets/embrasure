@@ -17,7 +17,7 @@ describe('getSecret', () => {
         expect(result).toEqual({ key: 'exampleKey1', value: 'exampleValue1' });
     });
 
-    it('should handle errors when getting secrest', async () => {
+    it('should handle errors when getting secret', async () => {
         const error = jest.spyOn(console, 'error').mockImplementation(() => {});
         const expectedError = new Error("Couldn't create secret");
 
