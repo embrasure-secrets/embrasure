@@ -22,9 +22,9 @@ app.get('/secrets', async (req, res) => {
 
 app.get('/secret', async (req, res) => {
     try {
-        const secretName = req.query.name;
+        const secretKey = req.query.key;
         // getSecret doesn't throw an error
-        const secret = await getSecret(secretName);
+        const secret = await getSecret(secretKey);
         if (secret === undefined) {
             throw new Error('Secret not found');
         }
@@ -36,11 +36,11 @@ app.get('/secret', async (req, res) => {
 
 app.delete('/secret', async (req, res) => {
     try {
-        const secretName = req.query.name;
+        const secretKey = req.query.key;
         /* 
         deleteSecret returns 1 if a secret was found and deleted, 0 otherwise
         */
-        const secretDeleted = !!(await deleteSecret(secretName));
+        const secretDeleted = !!(await deleteSecret(secretKey));
         if (!secretDeleted) {
             throw new Error('Secret could not be deleted or was not found.');
         }
@@ -54,14 +54,14 @@ app.delete('/secret', async (req, res) => {
 https://sequelize.org/docs/v7/querying/update/#updating-a-row-using-modelupdate
 According to this link, `Model#update` only updates the fields that you specify, so it's more appropriate to use `PATCH` than `PUT`.
 
-Secret name is sent through URL-encoded query params.
+Secret key is sent through URL-encoded query params.
 Secret value is sent in JSON request body.
 */
 app.patch('/secret', async (req, res) => {
     try {
-        const secretName = req.query.name;
+        const secretKey = req.query.key;
         const secretValue = req.body.value;
-        const secretUpdated = !!(await updateSecret(secretName, secretValue));
+        const secretUpdated = !!(await updateSecret(secretKey, secretValue));
 
         if (!secretUpdated) {
             throw new Error('Secret could not be updated or was not found.');
@@ -73,16 +73,16 @@ app.patch('/secret', async (req, res) => {
     }
 });
 
-// Returns secret name. Does not return secret value
+// Returns secret key. Does not return secret value
 app.post('/secrets', async (req, res) => {
     try {
-        const secretName = req.query.name;
+        const secretKey = req.query.key;
         const secretValue = req.body.value;
 
-        const createdSecret = await addSecret(secretName, secretValue);
+        const createdSecret = await addSecret(secretKey, secretValue);
         if (!createdSecret) throw new Error("Couldn't create secret.");
 
-        res.status(201).json({ key: createdSecret.name });
+        res.status(201).json({ key: createdSecret.key });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
