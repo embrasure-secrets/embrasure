@@ -7,6 +7,7 @@ import getAllSecrets from '../utils/rds/getAllSecrets.js';
 import getSecret from '../utils/rds/getSecret.js';
 import deleteSecret from '../utils/rds/deleteSecret.js';
 import updateSecret from '../utils/rds/updateSecret.js';
+import addSecret from '../utils/rds/addSecret.js';
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/allSecrets', async (req, res) => {
+app.get('/secrets', async (req, res) => {
     const secrets = await getAllSecrets();
     res.json(secrets);
 });
@@ -67,6 +68,21 @@ app.patch('/secret', async (req, res) => {
         }
         // returns no content
         res.status(204).json({});
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
+// Returns secret name. Does not return secret value
+app.post('/secrets', async (req, res) => {
+    try {
+        const secretName = req.query.name;
+        const secretValue = req.body.value;
+
+        const createdSecret = await addSecret(secretName, secretValue);
+        if (!createdSecret) throw new Error("Couldn't create secret.");
+
+        res.status(201).json({ key: createdSecret.name });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
