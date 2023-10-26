@@ -22,7 +22,7 @@ app.get('/secrets', async (req, res) => {
 
 app.get('/secret', async (req, res) => {
     try {
-        const secretKey = req.query.key;
+        const secretKey = req.body.key;
         // getSecret doesn't throw an error
         const secret = await getSecret(secretKey);
         if (secret === undefined) {
@@ -36,7 +36,7 @@ app.get('/secret', async (req, res) => {
 
 app.delete('/secret', async (req, res) => {
     try {
-        const secretKey = req.query.key;
+        const secretKey = req.body.key;
         /* 
         deleteSecret returns 1 if a secret was found and deleted, 0 otherwise
         */
@@ -54,12 +54,11 @@ app.delete('/secret', async (req, res) => {
 https://sequelize.org/docs/v7/querying/update/#updating-a-row-using-modelupdate
 According to this link, `Model#update` only updates the fields that you specify, so it's more appropriate to use `PATCH` than `PUT`.
 
-Secret key is sent through URL-encoded query params.
-Secret value is sent in JSON request body.
+Secret key and value are sent in JSON request body.
 */
 app.patch('/secret', async (req, res) => {
     try {
-        const secretKey = req.query.key;
+        const secretKey = req.body.key;
         const secretValue = req.body.value;
         const secretUpdated = !!(await updateSecret(secretKey, secretValue));
 
@@ -76,7 +75,7 @@ app.patch('/secret', async (req, res) => {
 // Returns secret key. Does not return secret value
 app.post('/secrets', async (req, res) => {
     try {
-        const secretKey = req.query.key;
+        const secretKey = req.body.key;
         const secretValue = req.body.value;
 
         const createdSecret = await addSecret(secretKey, secretValue);
