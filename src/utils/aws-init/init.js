@@ -15,9 +15,10 @@ async function init() {
         const internetGatewayId = await createInternetGateway(vpcId);
 
         const subnetGroupArr = await createSubnets(vpcId);
-        const privateSubnets = subnetGroupArr.slice(0, 2);
+
+        const privateSubnets = [subnetGroupArr[0], subnetGroupArr[1]];
         const publicSubnet = [subnetGroupArr[2]];
-        await createSubnetGroup(subnetGroupArr);
+        await createSubnetGroup(privateSubnets);
         await createPublicRouteTable(vpcId, internetGatewayId, publicSubnet);
         await createPrivateRouteTable(vpcId, privateSubnets);
 

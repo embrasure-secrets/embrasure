@@ -19,7 +19,7 @@ async function createSubnets(VpcId) {
     const subnetParams3 = {
         VpcId,
         AvailabilityZone: 'us-east-1c',
-        CidrBlock: '10.0.2.0/24',
+        CidrBlock: '10.0.3.0/24',
     };
 
     // build aws subnet creation command object
