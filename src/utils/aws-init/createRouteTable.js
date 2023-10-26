@@ -36,7 +36,7 @@ async function createRouteTable(VpcId, gatewayId, subnetIdArr) {
         RouteTableId: routeTableId,
     });
     await client.send(createRouteCommand);
-
+    console.log('Route Table created');
     // Code below this point is just adding a name to the newly created VPC
     await addNametag(routeTableId, 'Embrasure-Route-Table');
 }

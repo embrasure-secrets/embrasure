@@ -23,7 +23,9 @@ async function createSubnets(VpcId) {
     try {
         // send subnet build request to aws
         const subnet1 = await client.send(subnetCommand1);
+        console.log('Subnet 0 created');
         const subnet2 = await client.send(subnetCommand2);
+        console.log('Subnet 1 created');
         const subnetIds = [subnet1.Subnet.SubnetId, subnet2.Subnet.SubnetId];
         // Build and then send request to add name tags to each subnet
         subnetIds.forEach((id, idx) => {

@@ -16,6 +16,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         MasterUserPassword: 'password',
         DBSubnetGroupName: 'embrasure-db-subnet-group',
         PubliclyAccessible: true,
+        StorageEncrypted: true,
     };
 
     try {
@@ -23,7 +24,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         const createDBInstanceCommand = new CreateDBInstanceCommand(params);
 
         const data = await client.send(createDBInstanceCommand);
-        console.log('Postgres instance created:', data);
+        console.log('Postgres instance created');
     } catch (error) {
         console.error('Error creating Postgres instance:', error);
     }
