@@ -1,4 +1,4 @@
-import { RDSClient, CreateDBInstanceCommand } from '@aws-sdk/client-rds';
+import { RDSClient, CreateDBInstanceCommand, ModifyDBInstanceCommand } from '@aws-sdk/client-rds';
 
 async function createPostgresInstance(VpcSecurityGroupIds) {
     // Initialize the RDS client
@@ -17,6 +17,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         DBSubnetGroupName: 'embrasure-db-subnet-group',
         PubliclyAccessible: true,
         StorageEncrypted: true,
+        EnableIAMDatabaseAuthentication: true,
     };
 
     try {

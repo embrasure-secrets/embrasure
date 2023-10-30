@@ -17,9 +17,9 @@ async function init() {
         const subnetGroupArr = await createSubnets(vpcId);
 
         const privateSubnets = [subnetGroupArr[0], subnetGroupArr[1]];
-        const publicSubnet = [subnetGroupArr[2]];
+        // const publicSubnet = [subnetGroupArr[2]];
         await createSubnetGroup(privateSubnets);
-        await createPublicRouteTable(vpcId, internetGatewayId, publicSubnet);
+        await createPublicRouteTable(vpcId, internetGatewayId);
         await createPrivateRouteTable(vpcId, subnetGroupArr); // all three subnets are intentionally placed on private route table
 
         const securityGroupResponse = await createVpcSecurityGroup(vpcId);

@@ -21,14 +21,16 @@ async function createPublicRouteTable(VpcId, gatewayId, subnetIdArr) {
     const routeTableId = createRouteTableResponse.RouteTable.RouteTableId;
 
     // adds each specified subnet to the route tables logs
-    subnetIdArr.forEach(async (id) => {
-        const associateRouteTableCommand = new AssociateRouteTableCommand({
-            RouteTableId: routeTableId,
-            SubnetId: id,
+    // only runs code if subnetIdArr is not empty
+    if (subnetIdArr) {
+        subnetIdArr.forEach(async (id) => {
+            const associateRouteTableCommand = new AssociateRouteTableCommand({
+                RouteTableId: routeTableId,
+                SubnetId: id,
+            });
+            await client.send(associateRouteTableCommand);
         });
-        await client.send(associateRouteTableCommand);
-    });
-
+    }
     // adds the specified internet gateway to the route tables logs
     const createRouteCommand = new CreateRouteCommand({
         DestinationCidrBlock: '0.0.0.0/0',
