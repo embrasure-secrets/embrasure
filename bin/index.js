@@ -11,11 +11,8 @@ Connection to DB does not exit immediately after each function is executed. Ther
 */
 
 import { Command } from 'commander';
-import getAllSecrets from '../src/utils/rds/getAllSecrets.js';
-import getSecret from '../src/utils/rds/getSecret.js';
-import addSecret from '../src/utils/rds/addSecret.js';
-import updateSecret from '../src/utils/rds/updateSecret.js';
-import deleteSecret from '../src/utils/rds/deleteSecret.js';
+
+import { getAllSecrets, getSecret, deleteSecret, updateSecret, addSecret } from '../src/api.js';
 
 const cli = new Command();
 
