@@ -10,9 +10,8 @@ async function createVpcSecurityGroup(vpcId) {
 
     // Specify name, description and associated vpc of new security group
     const params = {
-        GroupName: 'Embrasure-postgres-traffic-only',
-        Description:
-            'Embrasure created open security group that only allows postgres database communication in',
+        GroupName: 'Embrasure-all-traffic',
+        Description: 'Embrasure created open security group that allows all traffic in',
         VpcId: vpcId,
     };
     try {
@@ -25,9 +24,9 @@ async function createVpcSecurityGroup(vpcId) {
             GroupId: response.GroupId,
             IpPermissions: [
                 {
-                    IpProtocol: 'tcp',
-                    FromPort: 5432,
-                    ToPort: 5432,
+                    IpProtocol: '-1',
+                    FromPort: -1,
+                    ToPort: -1,
                     IpRanges: [{ CidrIp: '0.0.0.0/0' }],
                 },
             ],
