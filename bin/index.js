@@ -13,6 +13,7 @@ Connection to DB does not exit immediately after each function is executed. Ther
 import { Command } from 'commander';
 
 import { getAllSecrets, getSecret, deleteSecret, updateSecret, addSecret } from '../src/api.js';
+import injectSecrets from '../src/wrapper.js';
 
 const cli = new Command();
 
@@ -59,6 +60,19 @@ cli.command('ds')
     .option('-n --name <name>', 'Specify secret name')
     .action(({ name }) => {
         deleteSecret(name);
+    });
+
+cli.command('r')
+    .alias('run')
+    .description('Run file with secrets injected')
+    .option('-f --file <file>', 'Specify file path')
+    .action(async ({ file }) => {
+        const secrets = await getAllSecrets();
+        const env = secrets.reduce(
+            (secretsObj, { key, value }) => ({ ...secretsObj, [key]: value }),
+            {}
+        );
+        injectSecrets(file, env);
     });
 
 cli.parse(process.argv);
