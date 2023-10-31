@@ -1,8 +1,11 @@
 // import spawn method of node:child_process module
 import { spawn } from 'child_process';
 
-function injectSecrets(NODE, FILE_NAME, env) {
-    const child = spawn(NODE, [FILE_NAME], { env });
+const NODE_PATH = process.execPath;
+function injectSecrets(FILE_NAME, env) {
+    const child = spawn(NODE_PATH, [FILE_NAME], {
+        env,
+    });
 
     // log child process output
     child.stdout.on('data', (data) => {
