@@ -6,6 +6,7 @@ import createSubnetGroup from './createDBSubnetGroup.js';
 import createInternetGateway from './createInternetGateway.js';
 import createPublicRouteTable from './createPublicRouteTable.js';
 import createPrivateRouteTable from './createPrivateRouteTable.js';
+import checkRDSStatus from './checkRdsStatus.js';
 
 async function init() {
     try {
@@ -26,10 +27,16 @@ async function init() {
         // wrapped in array beacuse createPostgresInstance expects array
         const vpcSecurityGroupIds = [securityGroupResponse.SecurityGroupRules[0].GroupId];
         await createPostgresInstance(vpcSecurityGroupIds);
-
-        console.log(
-            'Embrasure AWS backend sucessfully created! Please visit Amazon RDS section of https://console.aws.amazon.com/ to see the status of your new database'
-        );
+        checkRDSStatus()
+            .then(() => {
+                console.log('DB instance is available');
+                console.log(
+                    'Embrasure AWS backend sucessfully created! Please visit Amazon RDS section of https://console.aws.amazon.com/ to see the status of your new database'
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     } catch (error) {
         console.error(error);
         throw error;

@@ -31,7 +31,7 @@ async function createPrivateRouteTable(VpcId, subnetIdArr) {
 
     console.log('Route Table created');
     // Code below this point is just adding a name to the newly created VPC
-    await addNametag(routeTableId, 'Embrasure-Private-Route-Table');
+    await addNametag(routeTableId, 'Embrasure-Private-Route-Table-v2');
 }
 
 export default createPrivateRouteTable;

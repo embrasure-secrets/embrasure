@@ -6,7 +6,7 @@ async function createSubnetGroup(subnetIdArr) {
 
     // Specify the parameters for creating the DB subnet group
     const subnetGroupParams = {
-        DBSubnetGroupName: 'embrasure-db-subnet-group',
+        DBSubnetGroupName: 'embrasure-db-subnet-group-v2',
         DBSubnetGroupDescription: 'Embrasure created subnet group',
         SubnetIds: subnetIdArr, // Replace with your subnet IDs
     };
