@@ -14,6 +14,7 @@ import { Command } from 'commander';
 
 import {
     getAllSecrets,
+    getAllUsers,
     getSecret,
     deleteSecret,
     updateSecret,
@@ -26,12 +27,20 @@ const cli = new Command();
 
 cli.version('1.0.0').description('Welcome to Embrasure Secrets Manager');
 
-cli.command('ga')
+cli.command('gas')
     .alias('getAllSecrets')
     .description('Get all secrets for your current project environment')
     .action(async () => {
         const secrets = await getAllSecrets();
         console.log(secrets);
+    });
+
+cli.command('gau')
+    .alias('getAllUsers')
+    .description('Get all users for your current project environment')
+    .action(async () => {
+        const users = await getAllUsers();
+        console.log(users);
     });
 
 cli.command('gs')

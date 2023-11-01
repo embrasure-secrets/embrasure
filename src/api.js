@@ -18,6 +18,11 @@ export const getAllSecrets = async () => {
     return secrets;
 };
 
+export const getAllUsers = async () => {
+    const { data: users } = await axios.get(`${ENDPOINT}/users`, { headers });
+    return users;
+};
+
 export const getSecret = async (key) => {
     const { data: secret } = await axios.get(`${ENDPOINT}/secret`, { params: { key }, headers });
 
