@@ -1,0 +1,43 @@
+import { AddUserToGroupCommand, IAMClient } from '@aws-sdk/client-iam';
+
+/*
+Given a user group name and user name
+both as strings, addUserToUserGroup function
+will add the user to the user group
+
+Function is idempotent - adding a user 
+that is already in the user group will
+return a successful response and not 
+an error.
+*/
+
+async function addUserToUserGroup(groupName, userName) {
+    try {
+        const iamClient = new IAMClient();
+
+        const addUserToGroupCommand = new AddUserToGroupCommand({
+            GroupName: groupName,
+            UserName: userName,
+        });
+        const addUserToGroupResponse = await iamClient.send(addUserToGroupCommand);
+        console.log('User successfully added to user group: ', addUserToGroupResponse);
+        /*
+      addUserToGroupResponse has the following structure: 
+      {
+        '$metadata': {
+          httpStatusCode: 200,
+          requestId: 'a0f5533d-020d-4919-8a09-21419bcef7ee',
+          extendedRequestId: undefined,
+          cfId: undefined,
+          attempts: 1,
+          totalRetryDelay: 0
+        }
+      }
+    */
+        return addUserToGroupResponse;
+    } catch (err) {
+        console.error('Error in adding user to user group: ', err);
+    }
+}
+
+export default addUserToUserGroup;
