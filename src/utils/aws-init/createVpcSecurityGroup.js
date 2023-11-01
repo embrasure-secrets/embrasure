@@ -6,7 +6,7 @@ import {
 
 async function createVpcSecurityGroup(vpcId) {
     // Initialize the EC2 client
-    const client = new EC2Client({ region: 'us-east-1' });
+    const client = new EC2Client();
 
     // Specify name, description and associated vpc of new security group
     const params = {

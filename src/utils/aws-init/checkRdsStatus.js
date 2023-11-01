@@ -1,7 +1,7 @@
 import { RDSClient, DescribeDBInstancesCommand } from '@aws-sdk/client-rds';
 
 // Set the AWS region and credentials
-const client = new RDSClient({ region: 'us-east-1' });
+const client = new RDSClient();
 
 // Set the parameters for the RDS instance
 const describeParams = {

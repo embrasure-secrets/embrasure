@@ -3,22 +3,23 @@ import addNametag from './addNametag.js';
 
 async function createSubnets(VpcId) {
     // Initialize the EC2 client
-    const client = new EC2Client({ region: 'us-east-1' });
+    const client = new EC2Client();
+    const region = await client.config.region();
 
     // Specify parameters for two subnets (minimum aws requires for redundancy purposes in an aws subnet group)
     const subnetParams1 = {
         VpcId,
-        AvailabilityZone: 'us-east-1a',
+        AvailabilityZone: `${region}-1a`,
         CidrBlock: '10.0.1.0/24',
     };
     const subnetParams2 = {
         VpcId,
-        AvailabilityZone: 'us-east-1b',
+        AvailabilityZone: `${region}-1b`,
         CidrBlock: '10.0.2.0/24',
     };
     const subnetParams3 = {
         VpcId,
-        AvailabilityZone: 'us-east-1c',
+        AvailabilityZone: `${region}-1c`,
         CidrBlock: '10.0.3.0/24',
     };
 

@@ -7,7 +7,7 @@ import addNametag from './addNametag.js';
 
 async function createInternetGateway(VpcId) {
     // Initialize the EC2 client
-    const client = new EC2Client({ region: 'us-east-1' });
+    const client = new EC2Client();
 
     // Build aws internet gateway object and then send request for creation to aws
     const createInternetGatewayCommand = new CreateInternetGatewayCommand({});
