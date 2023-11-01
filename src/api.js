@@ -52,3 +52,8 @@ export const addSecret = async (key, value) => {
     );
     return newSecret;
 };
+
+export const addUser = async (name) => {
+    const { data: usersCreated } = await axios.post(`${ENDPOINT}/users`, { name }, { headers });
+    return usersCreated;
+};
