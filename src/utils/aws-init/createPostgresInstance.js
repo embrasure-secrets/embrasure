@@ -15,7 +15,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         MasterUsername: 'postgres',
         MasterUserPassword: 'password',
         DBSubnetGroupName: 'embrasure-db-subnet-group-v2',
-        PubliclyAccessible: true,
+        PubliclyAccessible: false,
         StorageEncrypted: true,
         EnableIAMDatabaseAuthentication: true,
     };
