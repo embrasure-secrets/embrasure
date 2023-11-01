@@ -20,8 +20,8 @@ async function init() {
         const privateSubnets = [subnetGroupArr[0], subnetGroupArr[1]];
         // const publicSubnet = [subnetGroupArr[2]];
         await createSubnetGroup(privateSubnets);
-        await createPublicRouteTable(vpcId, internetGatewayId);
-        await createPrivateRouteTable(vpcId, subnetGroupArr); // all three subnets are intentionally placed on private route table
+        await createPublicRouteTable(vpcId, internetGatewayId, subnetGroupArr);
+        await createPrivateRouteTable(vpcId); // all three subnets are intentionally placed on private route table
 
         const securityGroupResponse = await createVpcSecurityGroup(vpcId);
         // wrapped in array beacuse createPostgresInstance expects array

@@ -21,14 +21,15 @@ async function createPrivateRouteTable(VpcId, subnetIdArr) {
     const routeTableId = createRouteTableResponse.RouteTable.RouteTableId;
 
     // adds each specified subnet to the route tables logs
-    subnetIdArr.forEach(async (id) => {
-        const associateRouteTableCommand = new AssociateRouteTableCommand({
-            RouteTableId: routeTableId,
-            SubnetId: id,
+    if (subnetIdArr) {
+        subnetIdArr.forEach(async (id) => {
+            const associateRouteTableCommand = new AssociateRouteTableCommand({
+                RouteTableId: routeTableId,
+                SubnetId: id,
+            });
+            await client.send(associateRouteTableCommand);
         });
-        await client.send(associateRouteTableCommand);
-    });
-
+    }
     console.log('Route Table created');
     // Code below this point is just adding a name to the newly created VPC
     await addNametag(routeTableId, 'Embrasure-Private-Route-Table-v2');
