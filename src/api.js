@@ -18,6 +18,11 @@ export const getAllSecrets = async () => {
     return secrets;
 };
 
+export const getAllUsers = async () => {
+    const { data: users } = await axios.get(`${ENDPOINT}/users`, { headers });
+    return users;
+};
+
 export const getSecret = async (key) => {
     const { data: secret } = await axios.get(`${ENDPOINT}/secret`, { params: { key }, headers });
 
@@ -53,7 +58,7 @@ export const addSecret = async (key, value) => {
     return newSecret;
 };
 
-export const addUser = async (name) => {
-    const { data: usersCreated } = await axios.post(`${ENDPOINT}/users`, { name }, { headers });
+export const addUser = async (username) => {
+    const { data: usersCreated } = await axios.post(`${ENDPOINT}/users`, { username }, { headers });
     return usersCreated;
 };
