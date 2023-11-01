@@ -40,6 +40,7 @@
         "@aws-sdk/client-ec2": "^3.433.0",
         "@aws-sdk/client-iam": "^3.438.0",
         "@aws-sdk/client-rds": "^3.433.0",
+        "@aws-sdk/rds-signer": "^3.438.0",
         "axios": "^1.6.0",
         "commander": "^11.1.0",
         "dotenv": "^16.3.1",

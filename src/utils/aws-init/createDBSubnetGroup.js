@@ -2,7 +2,7 @@ import { RDSClient, CreateDBSubnetGroupCommand } from '@aws-sdk/client-rds';
 
 async function createSubnetGroup(subnetIdArr) {
     // Initialize the RDS client
-    const client = new RDSClient({ region: 'us-east-1' }); // Replace with your desired AWS region
+    const client = new RDSClient(); // Replace with your desired AWS region
 
     // Specify the parameters for creating the DB subnet group
     const subnetGroupParams = {

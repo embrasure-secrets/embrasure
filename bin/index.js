@@ -14,24 +14,36 @@ import { Command } from 'commander';
 
 import {
     getAllSecrets,
+    getAllUsers,
     getSecret,
     deleteSecret,
     updateSecret,
     addSecret,
     addUser,
 } from '../src/api.js';
+
+import initNewUser from '../src/utils/iam/initNewUser.js';
+
 import injectSecrets from '../src/wrapper.js';
 
 const cli = new Command();
 
 cli.version('1.0.0').description('Welcome to Embrasure Secrets Manager');
 
-cli.command('ga')
+cli.command('gas')
     .alias('getAllSecrets')
     .description('Get all secrets for your current project environment')
     .action(async () => {
         const secrets = await getAllSecrets();
         console.log(secrets);
+    });
+
+cli.command('gau')
+    .alias('getAllUsers')
+    .description('Get all users for your current project environment')
+    .action(async () => {
+        const users = await getAllUsers();
+        console.log(users);
     });
 
 cli.command('gs')
@@ -87,8 +99,13 @@ cli.command('au')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
     .action(async ({ name }) => {
-        const usersCreated = await addUser(name);
-        console.log(usersCreated);
+        try {
+            await initNewUser(name);
+            const usersCreated = await addUser(name);
+            console.log(usersCreated);
+        } catch (error) {
+            console.error("Couldn't add new user");
+        }
     });
 
 cli.parse(process.argv);

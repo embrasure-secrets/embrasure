@@ -2,7 +2,7 @@ import { RDSClient, CreateDBInstanceCommand } from '@aws-sdk/client-rds';
 
 async function createPostgresInstance(VpcSecurityGroupIds) {
     // Initialize the RDS client
-    const client = new RDSClient({ region: 'us-east-1' });
+    const client = new RDSClient();
 
     // Specify parameters of database instance
     const params = {
@@ -15,7 +15,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         MasterUsername: 'postgres',
         MasterUserPassword: 'password',
         DBSubnetGroupName: 'embrasure-db-subnet-group-v2',
-        PubliclyAccessible: true,
+        PubliclyAccessible: false,
         StorageEncrypted: true,
         EnableIAMDatabaseAuthentication: true,
     };
