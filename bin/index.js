@@ -99,9 +99,13 @@ cli.command('au')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
     .action(async ({ name }) => {
-        await initNewUser(name);
-        const usersCreated = await addUser(name);
-        console.log(usersCreated);
+        try {
+            await initNewUser(name);
+            const usersCreated = await addUser(name);
+            console.log(usersCreated);
+        } catch (error) {
+            console.error("Couldn't add new user");
+        }
     });
 
 cli.parse(process.argv);
