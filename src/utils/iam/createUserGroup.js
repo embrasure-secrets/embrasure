@@ -13,7 +13,7 @@ async function createUserGroup(groupName) {
         const createGroupCommand = new CreateGroupCommand({ GroupName: groupName });
 
         const groupCreationResponse = await iamClient.send(createGroupCommand);
-        console.log('User group successfully created: ', groupCreationResponse);
+        console.log('User group successfully created: ', groupCreationResponse.Group.GroupName);
         /*
       groupCreationResponse has the following structure: 
       {
