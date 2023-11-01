@@ -1,7 +1,7 @@
 import { EC2Client, CreateTagsCommand } from '@aws-sdk/client-ec2';
 
 async function addNametag(resourceId, resourceName) {
-    const client = new EC2Client({ region: 'us-east-1' });
+    const client = new EC2Client();
     const createTagsCommand = new CreateTagsCommand({
         Resources: [resourceId],
         Tags: [

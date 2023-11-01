@@ -8,7 +8,7 @@ import addNametag from './addNametag.js';
 
 async function createPublicRouteTable(VpcId, gatewayId, subnetIdArr) {
     // Initialize the EC2 client
-    const client = new EC2Client({ region: 'us-east-1' });
+    const client = new EC2Client();
 
     // Create Route Table and specify parameters of new route table at the same time
     const createRouteTableCommand = new CreateRouteTableCommand({
