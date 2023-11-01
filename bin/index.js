@@ -21,6 +21,9 @@ import {
     addSecret,
     addUser,
 } from '../src/api.js';
+
+import initNewUser from '../src/utils/iam/initNewUser.js';
+
 import injectSecrets from '../src/wrapper.js';
 
 const cli = new Command();
@@ -96,6 +99,7 @@ cli.command('au')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
     .action(async ({ name }) => {
+        await initNewUser(name);
         const usersCreated = await addUser(name);
         console.log(usersCreated);
     });
