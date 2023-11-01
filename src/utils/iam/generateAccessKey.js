@@ -5,7 +5,8 @@ async function generateAccessKeys(IAMUserName) {
         const client = new IAMClient();
         const command = new CreateAccessKeyCommand({ UserName: IAMUserName });
         const generateKeysResponse = await client.send(command);
-        console.log('Access keys successfully created: ', generateKeysResponse);
+        console.log(`Access keys for ${IAMUserName} successfully created: `);
+        console.log(generateKeysResponse);
         // const accessKeyId = response.AccessKey.AccessKeyId;
         // const secretAccessKey = response.AccessKey.SecretAccessKey;
         /*
