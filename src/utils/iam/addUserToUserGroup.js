@@ -20,7 +20,7 @@ async function addUserToUserGroup(groupName, userName) {
             UserName: userName,
         });
         const addUserToGroupResponse = await iamClient.send(addUserToGroupCommand);
-        console.log('User successfully added to user group: ', addUserToGroupResponse);
+        console.log(`${userName} successfully added to ${groupName} IAM usergroup`);
         /*
       addUserToGroupResponse has the following structure: 
       {
