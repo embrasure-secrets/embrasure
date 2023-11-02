@@ -3,7 +3,7 @@ import { IAMClient, CreatePolicyCommand } from '@aws-sdk/client-iam';
 import getUserArn from '../aws-init/getUserArn.js';
 
 async function createNewUserGroupsPolicy(IAMUsername) {
-    const userArn = await getUserArn();
+    const userArn = await getUserArn(IAMUsername);
 
     const policyName = `embrasure-allow-list-groups-${IAMUsername}`;
 
@@ -12,7 +12,7 @@ async function createNewUserGroupsPolicy(IAMUsername) {
         Statement: [
             {
                 Effect: 'Allow',
-                Action: ['iam:ListGroupsForUser'],
+                Action: ['iam:ListGroupsForUser', 'iam:GetUser'],
                 Resource: [userArn], // 'arn:aws:iam::12341234123:user/robert'
             },
         ],
