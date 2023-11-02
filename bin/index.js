@@ -23,6 +23,7 @@ import {
 } from '../src/api.js';
 
 import initNewUser from '../src/utils/iam/initNewUser.js';
+import init from '../src/utils/aws-init/init.js';
 
 import injectSecrets from '../src/wrapper.js';
 
@@ -30,6 +31,12 @@ const cli = new Command();
 
 cli.version('1.0.0').description('Welcome to Embrasure Secrets Manager');
 
+cli.command('i')
+    .alias('init')
+    .description('Initialize backend architecture. Run this only once.')
+    .action(async () => {
+        await init();
+    });
 cli.command('gas')
     .alias('getAllSecrets')
     .description('Get all secrets for your current project environment')
