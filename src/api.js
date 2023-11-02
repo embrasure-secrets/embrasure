@@ -24,14 +24,15 @@ export const getAllUsers = async () => {
 };
 
 export const getSecret = async (key) => {
-    const { data: secret } = await axios.get(`${ENDPOINT}/secret`, { params: { key }, headers });
+    const { data: secret } = await axios.get(`${ENDPOINT}/secrets/${key}`, {
+        headers,
+    });
 
     return secret;
 };
 
 export const deleteSecret = async (key) => {
-    const { data: secretsDeleted } = await axios.delete(`${ENDPOINT}/secret`, {
-        data: { key },
+    const { data: secretsDeleted } = await axios.delete(`${ENDPOINT}/secrets/${key}`, {
         headers,
     });
     return secretsDeleted;
@@ -39,9 +40,8 @@ export const deleteSecret = async (key) => {
 
 export const updateSecret = async (key, value) => {
     const { data: secretsUpdated } = await axios.patch(
-        `${ENDPOINT}/secret`,
+        `${ENDPOINT}/secrets/${key}`,
         {
-            key,
             value,
         },
         { headers }
