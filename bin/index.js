@@ -23,6 +23,7 @@ import {
 } from '../src/api.js';
 
 import initNewUser from '../src/utils/iam/initNewUser.js';
+import init from '../src/utils/aws-init/init.js';
 
 import injectSecrets from '../src/wrapper.js';
 
@@ -30,6 +31,12 @@ const cli = new Command();
 
 cli.version('1.0.0').description('Welcome to Embrasure Secrets Manager');
 
+cli.command('i')
+    .alias('init')
+    .description('Initialize backend architecture. Run this only once.')
+    .action(async () => {
+        await init();
+    });
 cli.command('gas')
     .alias('getAllSecrets')
     .description('Get all secrets for your current project environment')
@@ -99,9 +106,10 @@ cli.command('au')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
     .action(async ({ name }) => {
+        const lowercaseName = name.toLowerCase();
         try {
-            await initNewUser(name);
-            const usersCreated = await addUser(name);
+            await initNewUser(lowercaseName);
+            const usersCreated = await addUser(lowercaseName);
             console.log(usersCreated);
         } catch (error) {
             console.error("Couldn't add new user");

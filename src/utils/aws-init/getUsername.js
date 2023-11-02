@@ -4,10 +4,9 @@ const iamClient = new IAMClient();
 
 async function getUsername() {
     try {
-        const response = await iamClient.send(new GetUserCommand({}));
-
-        if (response.User && response.User.UserName) {
-            const username = response.User.UserName;
+        const { User: user } = await iamClient.send(new GetUserCommand({}));
+        if (user && user.UserName) {
+            const username = user.UserName;
             return username;
         }
     } catch (error) {
