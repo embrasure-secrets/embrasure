@@ -2,9 +2,9 @@ import { IAMClient, GetUserCommand } from '@aws-sdk/client-iam';
 
 const iamClient = new IAMClient();
 
-async function getUserArn() {
+async function getUserArn(IAMUsername) {
     try {
-        const { User: user } = await iamClient.send(new GetUserCommand({}));
+        const { User: user } = await iamClient.send(new GetUserCommand({ UserName: IAMUsername }));
         if (user && user.Arn) {
             const { Arn: arn } = user;
             return arn;
