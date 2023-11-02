@@ -98,10 +98,11 @@ cli.command('au')
     .alias('addUser')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
-    .action(async ({ name }) => {
+    .option('-w --writePermissions [boolean]', 'Specify write permissions', false)
+    .action(async ({ name, writePermissions }) => {
         try {
             await initNewUser(name);
-            const usersCreated = await addUser(name);
+            const usersCreated = await addUser(name, writePermissions);
             console.log(usersCreated);
         } catch (error) {
             console.error("Couldn't add new user");
