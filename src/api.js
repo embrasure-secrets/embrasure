@@ -1,7 +1,14 @@
 import axios from 'axios';
 import './loadEnv.js';
+import generateDBAuthToken from './utils/iam/generateDBAuthToken.js';
+import isUserInGroup from './utils/aws-init/isUserInGroup.js';
+import getRegion from './utils/aws-init/getRegion.js';
+import getUsername from './utils/aws-init/getUsername.js';
 
 const ENDPOINT = process.env.API_ENDPOINT;
+const REGION = await getRegion();
+const IAM_USERNAME = await getUsername();
+
 // hard-coded for now
 const headers = {
     'db-username': process.env.DB_USER,
@@ -11,7 +18,19 @@ const headers = {
     'db-port': process.env.DB_PORT,
 };
 
+const NON_ADMIN_GROUP = 'embrasure-developer';
+
 export const getAllSecrets = async () => {
+    if (await isUserInGroup(IAM_USERNAME, NON_ADMIN_GROUP)) {
+        headers['db-auth-token'] = await generateDBAuthToken(
+            REGION,
+            headers['db-host'],
+            headers['db_port'],
+            IAM_USERNAME
+        );
+    }
+    console.log('value of headers[db-auth-token]: ', headers['db-auth-token']);
+    console.log('headers are: ', headers);
     const { data: secrets } = await axios.get(`${ENDPOINT}/secrets`, {
         headers,
     });
