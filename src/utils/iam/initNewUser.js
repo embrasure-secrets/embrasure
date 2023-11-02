@@ -9,11 +9,11 @@ import attachPolicyToUser from './attachPolicyToUser.js';
 async function initNewUser(IAMUsername) {
     try {
         await createIAMUser(IAMUsername);
-        const userGroupExists = await doesUserGroupExist('developer');
+        const userGroupExists = await doesUserGroupExist('embrasure-developer');
         if (!userGroupExists) {
-            await createUserGroup('developer');
+            await createUserGroup('embrasure-developer');
         }
-        await addUserToUserGroup('developer', IAMUsername);
+        await addUserToUserGroup('embrasure-developer', IAMUsername);
         await generateAccessKeys(IAMUsername);
         console.log(`GIVE AWS ACCESS KEYS TO ${IAMUsername}`);
         const policyARN = await createNewDBPolicy('embrasure-database-v2', IAMUsername);
