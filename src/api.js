@@ -20,17 +20,17 @@ const headers = {
 
 const NON_ADMIN_GROUP = 'embrasure-developer';
 
+if (await isUserInGroup(IAM_USERNAME, NON_ADMIN_GROUP)) {
+    headers['db-auth-token'] = await generateDBAuthToken(
+        REGION,
+        headers['db-host'],
+        headers['db-port'],
+        IAM_USERNAME
+    );
+    headers['db-username'] = IAM_USERNAME;
+}
+
 export const getAllSecrets = async () => {
-    if (await isUserInGroup(IAM_USERNAME, NON_ADMIN_GROUP)) {
-        headers['db-auth-token'] = await generateDBAuthToken(
-            REGION,
-            headers['db-host'],
-            headers['db_port'],
-            IAM_USERNAME
-        );
-    }
-    console.log('value of headers[db-auth-token]: ', headers['db-auth-token']);
-    console.log('headers are: ', headers);
     const { data: secrets } = await axios.get(`${ENDPOINT}/secrets`, {
         headers,
     });
