@@ -85,3 +85,8 @@ export const addUser = async (username, hasWritePermissions) => {
     );
     return usersCreated;
 };
+
+export const deleteUser = async (username) => {
+    const { data: usersDeleted } = await axios.delete(`${ENDPOINT}/users/${username}`, { headers });
+    return usersDeleted;
+};

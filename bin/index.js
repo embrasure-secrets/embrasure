@@ -20,6 +20,7 @@ import {
     updateSecret,
     addSecret,
     addUser,
+    deleteUser,
 } from '../src/api.js';
 
 import initNewUser from '../src/utils/iam/initNewUser.js';
@@ -86,6 +87,14 @@ cli.command('ds')
     .option('-n --name <name>', 'Specify secret name')
     .action(({ name }) => {
         deleteSecret(name);
+    });
+
+cli.command('du')
+    .alias('deleteUser')
+    .description('Delete user with specified name')
+    .option('-n --name <name>', 'Specify user name')
+    .action(({ name }) => {
+        deleteUser(name);
     });
 
 cli.command('r')
