@@ -4,7 +4,7 @@
     "description": "Embrasure Secrets Manager Core Features",
     "main": "index.js",
     "bin": {
-        "embrasure": "./bin/index.js"
+        "embrasure": "./bin/cli.js"
     },
     "type": "module",
     "scripts": {
