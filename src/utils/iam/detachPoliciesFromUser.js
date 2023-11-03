@@ -7,8 +7,6 @@ async function detachPoliciesFromUser(username) {
     try {
         const policyARNsArr = await getPolicyARNsFromName(username);
 
-        console.log('policy ARNs array', policyARNsArr);
-
         const paramsArr = policyARNsArr.map((policy) => ({
             UserName: username,
             PolicyArn: policy,
@@ -20,8 +18,6 @@ async function detachPoliciesFromUser(username) {
 
         const sendPromiseArr = commandsArr.map((command) => client.send(command));
 
-        console.log('sendPromisesArr', sendPromiseArr);
-
         await Promise.all(sendPromiseArr);
         console.log('Policies detached successfully');
     } catch (err) {
@@ -29,5 +25,4 @@ async function detachPoliciesFromUser(username) {
     }
 }
 
-await detachPoliciesFromUser('steven');
 export default detachPoliciesFromUser;
