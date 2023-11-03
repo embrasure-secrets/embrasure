@@ -105,11 +105,11 @@ cli.command('au')
     .alias('addUser')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
-    .action(async ({ name }) => {
-        const lowercaseName = name.toLowerCase();
+    .option('-w --writePermissions [boolean]', 'Specify write permissions', false)
+    .action(async ({ name, writePermissions }) => {
         try {
-            await initNewUser(lowercaseName);
-            const usersCreated = await addUser(lowercaseName);
+            await initNewUser(name);
+            const usersCreated = await addUser(name, writePermissions);
             console.log(usersCreated);
         } catch (error) {
             console.error("Couldn't add new user");
