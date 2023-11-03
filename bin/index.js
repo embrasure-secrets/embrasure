@@ -20,9 +20,11 @@ import {
     updateSecret,
     addSecret,
     addUser,
+    deleteUser,
 } from '../src/api.js';
 
 import initNewUser from '../src/utils/iam/initNewUser.js';
+import deleteIAMUser from '../src/utils/iam/deleteIAMUser.js';
 import init from '../src/utils/aws-init/init.js';
 
 import injectSecrets from '../src/wrapper.js';
@@ -88,6 +90,15 @@ cli.command('ds')
         deleteSecret(name);
     });
 
+cli.command('du')
+    .alias('deleteUser')
+    .description('Delete user with specified name')
+    .option('-n --name <name>', 'Specify user name')
+    .action(async ({ name }) => {
+        await deleteIAMUser(name);
+        deleteUser(name);
+    });
+
 cli.command('r')
     .alias('run')
     .description('Run file with secrets injected')
@@ -105,11 +116,12 @@ cli.command('au')
     .alias('addUser')
     .description('Add a user to your organization')
     .option('-n --name <name>', 'Specify username')
-    .action(async ({ name }) => {
-        const lowercaseName = name.toLowerCase();
+    .option('-w --writePermissions [boolean]', 'Specify write permissions', false)
+    .action(async ({ name, writePermissions }) => {
+        const nameLowercase = name.toLowerCase();
         try {
-            await initNewUser(lowercaseName);
-            const usersCreated = await addUser(lowercaseName);
+            await initNewUser(nameLowercase);
+            const usersCreated = await addUser(nameLowercase, writePermissions);
             console.log(usersCreated);
         } catch (error) {
             console.error("Couldn't add new user");
