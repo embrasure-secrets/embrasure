@@ -17,29 +17,18 @@ async function createSubnets(VpcId) {
         AvailabilityZone: `${region}b`,
         CidrBlock: '10.0.2.0/24',
     };
-    const subnetParams3 = {
-        VpcId,
-        AvailabilityZone: `${region}c`,
-        CidrBlock: '10.0.3.0/24',
-    };
 
     // build aws subnet creation command object
     const subnetCommand1 = new CreateSubnetCommand(subnetParams1);
     const subnetCommand2 = new CreateSubnetCommand(subnetParams2);
-    const subnetCommand3 = new CreateSubnetCommand(subnetParams3);
+
     try {
         // send subnet build request to aws
         const subnet1 = await client.send(subnetCommand1);
         console.log('Subnet 0 created');
         const subnet2 = await client.send(subnetCommand2);
         console.log('Subnet 1 created');
-        const subnet3 = await client.send(subnetCommand3);
-        console.log('Subnet 2 created');
-        const subnetIds = [
-            subnet1.Subnet.SubnetId,
-            subnet2.Subnet.SubnetId,
-            subnet3.Subnet.SubnetId,
-        ];
+        const subnetIds = [subnet1.Subnet.SubnetId, subnet2.Subnet.SubnetId];
         // Build and then send request to add name tags to each subnet
         subnetIds.forEach((id, idx) => {
             addNametag(id, `Embrasure-Subnet-${idx}`);
