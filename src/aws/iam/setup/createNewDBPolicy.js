@@ -1,6 +1,6 @@
 // Import required AWS SDK clients and commands for Node.js
 import { IAMClient, CreatePolicyCommand } from '@aws-sdk/client-iam';
-import getFormattedResourceArn from '../getFormattedResourceArn.js';
+import getFormattedResourceArn from '../../utils/getFormattedResourceArn.js';
 
 async function createNewDBPolicy(dbInstanceIdentifier = 'embrasure-database-v2', IAMUsername) {
     const resourceArn = await getFormattedResourceArn(dbInstanceIdentifier, IAMUsername);

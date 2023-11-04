@@ -1,6 +1,6 @@
 // Import required AWS SDK clients and commands for Node.js
 import { IAMClient, CreatePolicyCommand } from '@aws-sdk/client-iam';
-import getUserArn from '../aws-init/getUserArn.js';
+import getUserArn from '../../utils/getUserArn.js';
 
 async function createNewUserGroupsPolicy(IAMUsername) {
     const userArn = await getUserArn(IAMUsername);

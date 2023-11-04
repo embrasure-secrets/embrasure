@@ -23,8 +23,8 @@ import {
     deleteUser,
 } from '../src/api/api.js';
 
-import initNewUser from '../src/utils/iam/initNewUser.js';
-import deleteIAMUser from '../src/utils/iam/deleteIAMUser.js';
+import initNewUser from '../src/aws/iam/initNewUser.js';
+import deleteIAMUser from '../src/aws/iam/deleteIAMUser.js';
 import init from '../src/aws/init.js';
 
 import injectSecrets from '../src/api/injectSecrets.js';

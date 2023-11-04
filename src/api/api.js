@@ -1,9 +1,9 @@
 import axios from 'axios';
 import '../../loadEnv.js';
-import generateDBAuthToken from '../utils/iam/generateDBAuthToken.js';
-import isUserInGroup from '../utils/aws-init/isUserInGroup.js';
-import getRegion from '../utils/aws-init/getRegion.js';
-import getUsername from '../utils/aws-init/getUsername.js';
+import generateDBAuthToken from '../aws/utils/generateDBAuthToken.js';
+import isUserInGroup from '../aws/utils/isUserInGroup.js';
+import getRegion from '../aws/utils/getRegion.js';
+import getUsername from '../aws/utils/getUsername.js';
 
 const ENDPOINT = process.env.API_ENDPOINT;
 const REGION = await getRegion();

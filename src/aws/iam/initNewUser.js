@@ -1,6 +1,6 @@
 import createIAMUser from './setup/createIAMUser.js';
 import createUserGroup from './setup/createUserGroup.js';
-import doesUserGroupExist from './doesUserGroupExist.js';
+import doesUserGroupExist from '../utils/doesUserGroupExist.js';
 import addUserToUserGroup from './setup/addUserToUserGroup.js';
 import generateAccessKeys from './setup/generateAccessKey.js';
 import createNewDBPolicy from './setup/createNewDBPolicy.js';

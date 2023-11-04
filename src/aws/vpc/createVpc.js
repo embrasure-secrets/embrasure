@@ -1,5 +1,5 @@
 import { EC2Client, CreateVpcCommand, ModifyVpcAttributeCommand } from '@aws-sdk/client-ec2';
-import addNametag from '../../utils/aws-init/addNametag.js';
+import addNametag from '../utils/addNametag.js';
 
 async function createVpc() {
     // Initialize the EC2 client
