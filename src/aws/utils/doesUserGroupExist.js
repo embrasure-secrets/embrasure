@@ -9,8 +9,9 @@ async function doesUserGroupExist(userGroup) {
 
         const groups = groupsArr.map(({ GroupName }) => GroupName);
         return groups.includes(userGroup);
-    } catch (err) {
-        console.error('Error in getting IAM user groups:', err);
+    } catch (error) {
+        console.error('Error in getting IAM user groups:', error);
+        throw error;
     }
 }
 

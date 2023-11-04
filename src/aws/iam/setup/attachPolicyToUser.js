@@ -33,8 +33,9 @@ async function attachPolicyToUser(policyARN, IAMUsername) {
     */
         console.log(`Policy attached successfully to ${IAMUsername}`);
         return attachPolicyResponse;
-    } catch (err) {
-        console.error('Error in attaching policy to user:', err);
+    } catch (error) {
+        console.error('Error in attaching policy to user:', error);
+        throw error;
     }
 }
 

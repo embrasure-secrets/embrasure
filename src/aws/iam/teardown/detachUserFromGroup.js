@@ -17,6 +17,7 @@ async function detachUserFromGroup(username) {
         console.log(`User "${username}" has been removed from group "${groupName}".`);
     } catch (error) {
         console.error(`Error removing user from group: ${error.message}`);
+        throw error;
     }
 }
 

@@ -38,8 +38,9 @@ async function generateDBAuthToken(
         const authToken = await signer.getAuthToken();
         console.log(authToken);
         return authToken;
-    } catch (err) {
-        console.error('Error in generating token: ', err);
+    } catch (error) {
+        console.error('Error in generating token: ', error);
+        throw error;
     }
 }
 

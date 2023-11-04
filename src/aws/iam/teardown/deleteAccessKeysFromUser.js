@@ -34,6 +34,7 @@ async function deleteAccessKeysFromUser(username) {
         }
     } catch (error) {
         console.error(`Error listing or deleting access keys: ${error.message}`);
+        throw error;
     }
 }
 

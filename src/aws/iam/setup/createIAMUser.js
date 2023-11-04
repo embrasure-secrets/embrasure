@@ -7,8 +7,9 @@ async function createIAMUser(name) {
         const createUserResponse = await client.send(command);
         console.log('User successfully created: ', createUserResponse.User.UserName);
         return createUserResponse;
-    } catch (err) {
-        console.error('Error in creating new user: ', err);
+    } catch (error) {
+        console.error('Error in creating new user: ', error);
+        throw error;
     }
 }
 

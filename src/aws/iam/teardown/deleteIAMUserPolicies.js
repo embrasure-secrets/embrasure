@@ -20,8 +20,9 @@ async function deleteIAMUserPolicies(username) {
         await Promise.all(sendPromiseArr);
 
         console.log(`Policies of ${username} have been deleted.`);
-    } catch (err) {
-        console.error('Error in deleting policies: ', err);
+    } catch (error) {
+        console.error('Error in deleting policies: ', error);
+        throw error;
     }
 }
 
