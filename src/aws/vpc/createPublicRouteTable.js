@@ -4,7 +4,7 @@ import {
     CreateRouteCommand,
     AssociateRouteTableCommand,
 } from '@aws-sdk/client-ec2';
-import addNametag from './addNametag.js';
+import addNametag from '../../utils/aws-init/addNametag.js';
 
 async function createPublicRouteTable(VpcId, gatewayId, subnetIdArr) {
     // Initialize the EC2 client

@@ -3,7 +3,7 @@ import {
     CreateInternetGatewayCommand,
     AttachInternetGatewayCommand,
 } from '@aws-sdk/client-ec2';
-import addNametag from './addNametag.js';
+import addNametag from '../../utils/aws-init/addNametag.js';
 
 async function createInternetGateway(VpcId) {
     // Initialize the EC2 client

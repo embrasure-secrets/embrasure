@@ -1,5 +1,5 @@
 import { EC2Client, CreateSubnetCommand } from '@aws-sdk/client-ec2';
-import addNametag from './addNametag.js';
+import addNametag from '../../utils/aws-init/addNametag.js';
 
 async function createSubnets(VpcId) {
     // Initialize the EC2 client

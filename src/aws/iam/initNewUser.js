@@ -1,11 +1,11 @@
-import createIAMUser from './createIAMUser.js';
-import createUserGroup from './createUserGroup.js';
+import createIAMUser from './setup/createIAMUser.js';
+import createUserGroup from './setup/createUserGroup.js';
 import doesUserGroupExist from './doesUserGroupExist.js';
-import addUserToUserGroup from './addUserToUserGroup.js';
-import generateAccessKeys from './generateAccessKey.js';
-import createNewDBPolicy from './createNewDBPolicy.js';
-import createNewUserGroupsPolicy from './createNewListUserGroupsPolicy.js';
-import attachPolicyToUser from './attachPolicyToUser.js';
+import addUserToUserGroup from './setup/addUserToUserGroup.js';
+import generateAccessKeys from './setup/generateAccessKey.js';
+import createNewDBPolicy from './setup/createNewDBPolicy.js';
+import createNewUserGroupsPolicy from './setup/createNewListUserGroupsPolicy.js';
+import attachPolicyToUser from './setup/attachPolicyToUser.js';
 
 async function initNewUser(IAMUsername) {
     try {
