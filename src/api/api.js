@@ -92,7 +92,7 @@ export const showPermissions = async (username) => {
 };
 
 export const editPermission = async (username, setWritePermissionTo) => {
-    const { data: writePermission } = await axios.post(
+    const { data: writePermission } = await axios.put(
         `${ENDPOINT}/users/:username`,
         { username, setWritePermissionTo },
         { headers }
