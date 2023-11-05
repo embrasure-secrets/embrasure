@@ -22,6 +22,7 @@ import {
     addUser,
     deleteUser,
     showPermissions,
+    editPermission,
 } from '../src/api/api.js';
 
 import initNewUser from '../src/aws/iam/initNewUser.js';
@@ -142,6 +143,21 @@ cli.command('sp')
             );
         } catch (error) {
             console.error("Couldn't show permissions of user");
+        }
+    });
+
+cli.command('ep')
+    .alias('editPermission')
+    .description('Edit read/write permission for a user')
+    .requiredOption('-n --name <name>', 'Specify username')
+    .option('-w --setWritePermission', 'Specify write permission', false)
+    .action(async ({ name, setWritePermission }) => {
+        const nameLowercase = name.toLowerCase();
+        try {
+            const editPermissionResult = await editPermission(nameLowercase, setWritePermission);
+            console.log(editPermissionResult);
+        } catch (error) {
+            console.error("Couldn't edit user write permission");
         }
     });
 
