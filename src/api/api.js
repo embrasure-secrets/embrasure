@@ -91,6 +91,15 @@ export const showPermissions = async (username) => {
     return permissions;
 };
 
+export const editPermission = async (username, setWritePermissionTo) => {
+    const { data: writePermission } = await axios.post(
+        `${ENDPOINT}/users/:username`,
+        { username, setWritePermissionTo },
+        { headers }
+    );
+    return writePermission;
+};
+
 export const deleteUser = async (username) => {
     const { data: usersDeleted } = await axios.delete(`${ENDPOINT}/users/${username}`, { headers });
     return usersDeleted;
