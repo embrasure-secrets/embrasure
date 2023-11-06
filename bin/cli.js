@@ -21,6 +21,8 @@ import {
     addSecret,
     addUser,
     deleteUser,
+    showPermissions,
+    editPermission,
 } from '../src/api/api.js';
 
 import initNewUser from '../src/aws/iam/initNewUser.js';
@@ -125,6 +127,37 @@ cli.command('au')
             console.log(usersCreated);
         } catch (error) {
             console.error("Couldn't add new user");
+        }
+    });
+
+cli.command('sp')
+    .alias('showPermissions')
+    .description('Show read/write permissions of a user')
+    .option('-n --name <name>', 'Specify username')
+    .action(async ({ name }) => {
+        const nameLowercase = name.toLowerCase();
+        try {
+            const permissions = await showPermissions(nameLowercase);
+            console.log(
+                `${name} has the following permissions for the Secrets table: ${permissions}`
+            );
+        } catch (error) {
+            console.error("Couldn't show permissions of user");
+        }
+    });
+
+cli.command('ep')
+    .alias('editPermission')
+    .description('Edit read/write permission for a user')
+    .requiredOption('-n --name <name>', 'Specify username')
+    .option('-w --setWritePermission', 'Specify write permission', false)
+    .action(async ({ name, setWritePermission }) => {
+        const nameLowercase = name.toLowerCase();
+        try {
+            const editPermissionResult = await editPermission(nameLowercase, setWritePermission);
+            console.log(editPermissionResult);
+        } catch (error) {
+            console.error("Couldn't edit user write permission");
         }
     });
 
