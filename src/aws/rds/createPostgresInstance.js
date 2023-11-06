@@ -1,6 +1,6 @@
 import { RDSClient, CreateDBInstanceCommand } from '@aws-sdk/client-rds';
 
-async function createPostgresInstance(VpcSecurityGroupIds) {
+async function createPostgresInstance(VpcSecurityGroupIds, username, password) {
     // Initialize the RDS client
     const client = new RDSClient();
 
@@ -12,8 +12,8 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         DBName: 'secrets',
         VpcSecurityGroupIds,
         Engine: 'postgres',
-        MasterUsername: 'postgres',
-        MasterUserPassword: 'password',
+        MasterUsername: username,
+        MasterUserPassword: password,
         DBSubnetGroupName: 'embrasure-db-subnet-group-v2',
         PubliclyAccessible: false,
         StorageEncrypted: true,
