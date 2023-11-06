@@ -10,7 +10,7 @@ to connect to the IAM auth enabled database
 */
 
 async function generateDBAuthToken(
-    //remove access key id /secret access key
+    // remove access key id /secret access key
     // accessKeyId,
     // secretAccessKey,
     region,
@@ -20,7 +20,7 @@ async function generateDBAuthToken(
 ) {
     try {
         const signer = new Signer({
-            //AWS credentials of iam user
+            // AWS credentials of iam user
             // credentials: {
             //   accessKeyId,
             //   secretAccessKey,
@@ -36,7 +36,6 @@ async function generateDBAuthToken(
         });
 
         const authToken = await signer.getAuthToken();
-        console.log(authToken);
         return authToken;
     } catch (error) {
         console.error('Error in generating token: ', error);
