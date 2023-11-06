@@ -25,16 +25,11 @@ async function init() {
         // wrapped in array beacuse createPostgresInstance expects array
         const vpcSecurityGroupIds = [securityGroupResponse.SecurityGroupRules[0].GroupId];
         await createPostgresInstance(vpcSecurityGroupIds);
-        checkRDSStatus()
-            .then(() => {
-                console.log('DB instance is available');
-                console.log(
-                    'Embrasure AWS backend sucessfully created! Please visit Amazon RDS section of https://console.aws.amazon.com/ to see the status of your new database'
-                );
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        await checkRDSStatus();
+        console.log('DB instance is available');
+        console.log(
+            'Embrasure AWS backend successfully created! Please visit Amazon RDS section of https://console.aws.amazon.com/ to see the status of your new database'
+        );
     } catch (error) {
         console.error(error);
         throw error;

@@ -15,17 +15,8 @@ async function createSubnetGroup(subnetIdArr) {
         // Create a new DB subnet group using CreateDBSubnetGroupCommand
         const createSubnetGroupCommand = new CreateDBSubnetGroupCommand(subnetGroupParams);
 
-        client
-            .send(createSubnetGroupCommand)
-            .then((data) => {
-                console.log(
-                    'Created DB subnet group with name:',
-                    data.DBSubnetGroup.DBSubnetGroupName
-                );
-            })
-            .catch((error) => {
-                console.error('Error creating DB subnet group:', error);
-            });
+        const data = await client.send(createSubnetGroupCommand);
+        console.log('Created DB subnet group with name:', data.DBSubnetGroup.DBSubnetGroupName);
     } catch (error) {
         console.error('Error in creating DB Subnet Group: ', error.message);
         throw error;
