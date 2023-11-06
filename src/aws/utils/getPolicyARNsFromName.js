@@ -1,4 +1,5 @@
 import { IAMClient, ListPoliciesCommand } from '@aws-sdk/client-iam';
+
 const iamClient = new IAMClient();
 
 async function getPolicyARNsFromName(username) {

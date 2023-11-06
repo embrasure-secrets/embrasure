@@ -1,12 +1,12 @@
-import createVpc from './createVpc.js';
-import createVpcSecurityGroup from './createVpcSecurityGroup.js';
-import createPostgresInstance from './createPostgresInstance.js';
-import createSubnets from './createDBSubnets.js';
-import createSubnetGroup from './createDBSubnetGroup.js';
-import createInternetGateway from './createInternetGateway.js';
-import createPublicRouteTable from './createPublicRouteTable.js';
-import createPrivateRouteTable from './createPrivateRouteTable.js';
-import checkRDSStatus from './checkRdsStatus.js';
+import createVpc from './vpc/createVpc.js';
+import createVpcSecurityGroup from './vpc/createVpcSecurityGroup.js';
+import createPostgresInstance from './rds/createPostgresInstance.js';
+import createSubnets from './vpc/createDBSubnets.js';
+import createSubnetGroup from './rds/createDBSubnetGroup.js';
+import createInternetGateway from './vpc/createInternetGateway.js';
+import createPublicRouteTable from './vpc/createPublicRouteTable.js';
+import createPrivateRouteTable from './vpc/createPrivateRouteTable.js';
+import checkRDSStatus from './rds/checkRdsStatus.js';
 
 async function init() {
     try {

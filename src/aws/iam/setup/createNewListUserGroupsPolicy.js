@@ -1,24 +1,25 @@
 // Import required AWS SDK clients and commands for Node.js
 import { IAMClient, CreatePolicyCommand } from '@aws-sdk/client-iam';
-import getFormattedResourceArn from './getFormattedResourceArn.js';
+import getUserArn from '../../utils/getUserArn.js';
 
-async function createNewDBPolicy(dbInstanceIdentifier = 'embrasure-database-v2', IAMUsername) {
-    const resourceArn = await getFormattedResourceArn(dbInstanceIdentifier, IAMUsername);
+async function createNewUserGroupsPolicy(IAMUsername) {
+    const userArn = await getUserArn(IAMUsername);
 
-    const policyName = `embrasure-allow-connect-${IAMUsername}`;
+    const policyName = `embrasure-allow-list-groups-${IAMUsername}`;
 
     const policyDocument = {
         Version: '2012-10-17',
         Statement: [
             {
                 Effect: 'Allow',
-                Action: ['rds-db:connect'],
-                Resource: [resourceArn], // "arn:aws:rds-db:us-east-2:330917834855:dbuser:db-AMNI53M4CJBHQQDAAONIF4A63A/iamuser"
+                Action: ['iam:ListGroupsForUser', 'iam:GetUser'],
+                Resource: [userArn], // 'arn:aws:iam::12341234123:user/robert'
             },
         ],
     };
 
-    const iamClient = new IAMClient(); // previously: new IAMClient({ region: REGION })
+    const iamClient = new IAMClient();
+
     // Set the parameters
     const params = {
         PolicyName: policyName,
@@ -36,4 +37,4 @@ async function createNewDBPolicy(dbInstanceIdentifier = 'embrasure-database-v2',
     }
 }
 
-export default createNewDBPolicy;
+export default createNewUserGroupsPolicy;

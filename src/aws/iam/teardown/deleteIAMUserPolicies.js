@@ -1,5 +1,5 @@
 import { IAMClient, DeletePolicyCommand } from '@aws-sdk/client-iam';
-import getPolicyARNsFromName from './getPolicyARNsFromName.js';
+import getPolicyARNsFromName from '../../utils/getPolicyARNsFromName.js';
 
 const client = new IAMClient({});
 

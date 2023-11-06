@@ -1,8 +1,8 @@
 import { IAMClient, DeleteUserCommand } from '@aws-sdk/client-iam';
-import deleteIAMUserPolicies from './deleteIAMUserPolicies.js';
-import deleteAccessKeysFromUser from './deleteAccessKeysFromUser.js';
-import detachUserFromGroup from './detachUserFromGroup.js';
-import detachPoliciesFromUser from './detachPoliciesFromUser.js';
+import deleteIAMUserPolicies from './teardown/deleteIAMUserPolicies.js';
+import deleteAccessKeysFromUser from './teardown/deleteAccessKeysFromUser.js';
+import detachUserFromGroup from './teardown/detachUserFromGroup.js';
+import detachPoliciesFromUser from './teardown/detachPoliciesFromUser.js';
 
 const client = new IAMClient({});
 
