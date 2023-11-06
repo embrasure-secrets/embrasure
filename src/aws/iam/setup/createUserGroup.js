@@ -35,8 +35,9 @@ async function createUserGroup(groupName) {
       }
     */
         return groupCreationResponse;
-    } catch (err) {
-        console.error('Error in creating new user group', err);
+    } catch (error) {
+        console.error('Error in creating new user group', error);
+        throw error;
     }
 }
 

@@ -15,8 +15,9 @@ async function getDbResourceId(dbInstanceIdentifier = 'embrasure-database-v2') {
         const resourceId = response.DBInstances[0].DbiResourceId;
         console.log('RDS Database Resource ID:', resourceId);
         return resourceId;
-    } catch (err) {
-        console.error('Error in getting resource id: ', err);
+    } catch (error) {
+        console.error('Error in getting resource id: ', error);
+        throw error;
     }
 }
 

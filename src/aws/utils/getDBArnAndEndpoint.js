@@ -24,8 +24,9 @@ async function getDBArnAndEndpoint(dbInstanceIdentifier = 'embrasure-database-v2
         console.log('arn is: ', arn);
         console.log('endpoint is: ', endpoint);
         return { arn, endpoint };
-    } catch (err) {
-        console.error('Error in getting database ARN and endpoint: ', err);
+    } catch (error) {
+        console.error('Error in getting database ARN and endpoint: ', error);
+        throw error;
     }
 }
 

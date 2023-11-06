@@ -31,8 +31,9 @@ async function createNewDBPolicy(dbInstanceIdentifier = 'embrasure-database-v2',
         console.log(`Policy Name is: ${policyName}`);
         console.log(`Policy ARN is: ${data.Policy.Arn}`);
         return data.Policy.Arn;
-    } catch (err) {
-        console.error('Error in creating policy', err);
+    } catch (error) {
+        console.error('Error in creating policy', error);
+        throw error;
     }
 }
 

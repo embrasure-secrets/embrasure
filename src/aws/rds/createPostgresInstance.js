@@ -30,6 +30,7 @@ async function createPostgresInstance(VpcSecurityGroupIds) {
         );
     } catch (error) {
         console.error('Error creating Postgres instance:', error);
+        throw error;
     }
 }
 

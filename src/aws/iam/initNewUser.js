@@ -23,6 +23,7 @@ async function initNewUser(IAMUsername) {
         await attachPolicyToUser(groupsPolicyARN, IAMUsername);
     } catch (error) {
         console.error('Error in creating new user:', error.message);
+        throw error;
     }
 }
 

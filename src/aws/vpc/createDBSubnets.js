@@ -34,8 +34,9 @@ async function createSubnets(VpcId) {
             addNametag(id, `Embrasure-Subnet-${idx}`);
         });
         return subnetIds;
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error('Error in creating DB subnets', error.message);
+        throw error;
     }
 }
 

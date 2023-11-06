@@ -20,8 +20,9 @@ async function detachPoliciesFromUser(username) {
 
         await Promise.all(sendPromiseArr);
         console.log('Policies detached successfully');
-    } catch (err) {
-        console.log('Error in detaching policies: ', err);
+    } catch (error) {
+        console.log('Error in detaching policies: ', error);
+        throw error;
     }
 }
 

@@ -35,8 +35,9 @@ async function addUserToUserGroup(groupName, userName) {
       }
     */
         return addUserToGroupResponse;
-    } catch (err) {
-        console.error('Error in adding user to user group: ', err);
+    } catch (error) {
+        console.error('Error in adding user to user group: ', error);
+        throw error;
     }
 }
 

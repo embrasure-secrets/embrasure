@@ -41,6 +41,7 @@ async function createVpcSecurityGroup(vpcId) {
         return authorizeIngressResponse;
     } catch (error) {
         console.error('Could not create Vpc security group with inbound rule:', error);
+        throw error;
     }
 }
 

@@ -30,8 +30,9 @@ async function generateAccessKeys(IAMUserName) {
       }
     */
         return generateKeysResponse;
-    } catch (err) {
-        console.error('Error in generating keys: ', err);
+    } catch (error) {
+        console.error('Error in generating keys: ', error);
+        throw error;
     }
 }
 
