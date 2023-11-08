@@ -37,10 +37,13 @@ cli.version('1.0.0').description('Welcome to Embrasure Secrets Manager');
 
 cli.command('i')
     .alias('init')
+    .requiredOption('-u --username <username>', 'Specify master username')
+    .requiredOption('-p --password <password>', 'Specify master password')
     .description('Initialize backend architecture. Run this only once.')
-    .action(async () => {
-        await init();
+    .action(async ({ username, password }) => {
+        await init(username, password);
     });
+
 cli.command('gas')
     .alias('getAllSecrets')
     .description('Get all secrets for your current project environment')

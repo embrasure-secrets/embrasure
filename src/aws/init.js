@@ -9,7 +9,7 @@ import createPrivateRouteTable from './vpc/createPrivateRouteTable.js';
 import checkRDSStatus from './rds/checkRdsStatus.js';
 import getDBArnAndEndpoint from './utils/getDBArnAndEndpoint.js';
 
-async function init() {
+async function init(username, password) {
     try {
         const vpcResponse = await createVpc();
         const vpcId = vpcResponse.Vpc.VpcId;
@@ -25,7 +25,7 @@ async function init() {
         const securityGroupResponse = await createVpcSecurityGroup(vpcId);
         // wrapped in array beacuse createPostgresInstance expects array
         const vpcSecurityGroupIds = [securityGroupResponse.SecurityGroupRules[0].GroupId];
-        await createPostgresInstance(vpcSecurityGroupIds);
+        await createPostgresInstance(vpcSecurityGroupIds, username, password);
         await checkRDSStatus();
         const { endpoint } = await getDBArnAndEndpoint();
 
@@ -40,8 +40,8 @@ async function init() {
         );
         const embrasureServerlessEnvVariables = {
             DATABASE_NAME: 'secrets',
-            DB_USER: 'postgres',
-            DB_USER_PASSWORD: 'password',
+            DB_USER: username,
+            DB_USER_PASSWORD: password,
             DB_PORT: 5432,
             API_PORT: 3000,
             DB_HOST: endpoint,
