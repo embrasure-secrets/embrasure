@@ -48,6 +48,7 @@ async function init(username, password) {
             SECURITY_GROUP_ID: vpcSecurityGroupIds[0],
             SUBNET_0_ID: subnetGroupArr[0],
             SUBNET_1_ID: subnetGroupArr[1],
+            AWS_REGION: 'Whatever-aws-region-your-team-is-using',
         };
         Object.keys(embrasureServerlessEnvVariables).forEach((key) => {
             console.log(`${key}=${embrasureServerlessEnvVariables[key]}`);
