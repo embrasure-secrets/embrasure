@@ -15,12 +15,13 @@ async function initNewUser(IAMUsername) {
             await createUserGroup('embrasure-developer');
         }
         await addUserToUserGroup('embrasure-developer', IAMUsername);
-        await generateAccessKeys(IAMUsername);
+        const accessKeys = await generateAccessKeys(IAMUsername);
         console.log(`GIVE AWS ACCESS KEYS TO ${IAMUsername}`);
         const dbPolicyARN = await createNewDBPolicy('embrasure-database-v2', IAMUsername);
         const groupsPolicyARN = await createNewUserGroupsPolicy(IAMUsername);
         await attachPolicyToUser(dbPolicyARN, IAMUsername);
         await attachPolicyToUser(groupsPolicyARN, IAMUsername);
+        return accessKeys;
     } catch (error) {
         console.error('Error in creating new user:', error.message);
         throw error;
