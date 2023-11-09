@@ -54,6 +54,7 @@ async function init(username, password) {
             SUBNET_1_ID: subnetGroupArr[1],
             LOGS_WORKER_ACCESS_KEY: accessKey,
             LOGS_WORKER_SECRET_ACCESS_KEY: secretAccessKey,
+            AWS_REGION: 'Whatever-aws-region-your-team-is-using',
         };
         Object.keys(embrasureServerlessEnvVariables).forEach((key) => {
             console.log(`${key}=${embrasureServerlessEnvVariables[key]}`);
