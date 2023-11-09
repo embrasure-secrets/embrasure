@@ -8,6 +8,7 @@ import createPublicRouteTable from './vpc/createPublicRouteTable.js';
 import createPrivateRouteTable from './vpc/createPrivateRouteTable.js';
 import checkRDSStatus from './rds/checkRdsStatus.js';
 import getDBArnAndEndpoint from './utils/getDBArnAndEndpoint.js';
+import initNewUser from './iam/initNewUser.js';
 
 async function init(username, password) {
     try {
@@ -32,6 +33,9 @@ async function init(username, password) {
         console.log(
             "DB instance is available! Theres a little bit more before Embrasure's setup is done."
         );
+
+        // create logs worker
+        const { accessKey, secretAccessKey } = await initNewUser('logsworker');
         console.log(
             'Go to https://github.com/Embrasure-Secrets/embrasure-server and clone into any directory'
         );
@@ -48,6 +52,8 @@ async function init(username, password) {
             SECURITY_GROUP_ID: vpcSecurityGroupIds[0],
             SUBNET_0_ID: subnetGroupArr[0],
             SUBNET_1_ID: subnetGroupArr[1],
+            LOGS_WORKER_ACCESS_KEY: accessKey,
+            LOGS_WORKER_SECRET_ACCESS_KEY: secretAccessKey,
         };
         Object.keys(embrasureServerlessEnvVariables).forEach((key) => {
             console.log(`${key}=${embrasureServerlessEnvVariables[key]}`);
