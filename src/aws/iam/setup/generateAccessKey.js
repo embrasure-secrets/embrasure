@@ -7,6 +7,8 @@ async function generateAccessKeys(IAMUserName) {
         const generateKeysResponse = await client.send(command);
         console.log(`Access keys for ${IAMUserName} successfully created: `);
         console.log(generateKeysResponse);
+        const accessKey = generateKeysResponse.AccessKey.AccessKeyId;
+        const secretAccessKey = generateKeysResponse.AccessKey.SecretAccessKey;
         // const accessKeyId = response.AccessKey.AccessKeyId;
         // const secretAccessKey = response.AccessKey.SecretAccessKey;
         /*
@@ -29,7 +31,8 @@ async function generateAccessKeys(IAMUserName) {
         }
       }
     */
-        return generateKeysResponse;
+        // return generateKeysResponse;
+        return { accessKey, secretAccessKey };
     } catch (error) {
         console.error('Error in generating keys: ', error);
         throw error;
