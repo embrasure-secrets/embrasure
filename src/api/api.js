@@ -42,6 +42,10 @@ export const getAllUsers = async () => {
     return users;
 };
 
+export const getAllLogs = async () => {
+    const { data: logs } = await axios.get(`${ENDPOINT}/logs`, { headers });
+    return logs;
+};
 export const getSecret = async (key) => {
     const { data: secret } = await axios.get(`${ENDPOINT}/secrets/${key}`, {
         headers,
