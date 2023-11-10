@@ -30,6 +30,7 @@ import deleteIAMUser from '../src/aws/iam/deleteIAMUser.js';
 import init from '../src/aws/init.js';
 
 import injectSecrets from '../src/api/injectSecrets.js';
+import teardown from '../src/aws/teardown.js';
 
 const cli = new Command();
 
@@ -42,6 +43,13 @@ cli.command('i')
     .description('Initialize backend architecture. Run this only once.')
     .action(async ({ username, password }) => {
         await init(username, password);
+    });
+
+cli.command('t')
+    .alias('teardown')
+    .description('Delete backend architecture.')
+    .action(async () => {
+        await teardown();
     });
 
 cli.command('gas')

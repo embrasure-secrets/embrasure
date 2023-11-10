@@ -3,9 +3,6 @@ import createVpcSecurityGroup from './vpc/createVpcSecurityGroup.js';
 import createPostgresInstance from './rds/createPostgresInstance.js';
 import createSubnets from './vpc/createDBSubnets.js';
 import createSubnetGroup from './rds/createDBSubnetGroup.js';
-import createInternetGateway from './vpc/createInternetGateway.js';
-import createPublicRouteTable from './vpc/createPublicRouteTable.js';
-import createPrivateRouteTable from './vpc/createPrivateRouteTable.js';
 import checkRDSStatus from './rds/checkRdsStatus.js';
 import getDBArnAndEndpoint from './utils/getDBArnAndEndpoint.js';
 import initNewUser from './iam/initNewUser.js';
@@ -15,13 +12,9 @@ async function init(username, password) {
         const vpcResponse = await createVpc();
         const vpcId = vpcResponse.Vpc.VpcId;
 
-        const internetGatewayId = await createInternetGateway(vpcId);
-
         const subnetGroupArr = await createSubnets(vpcId);
 
         await createSubnetGroup(subnetGroupArr);
-        await createPublicRouteTable(vpcId, internetGatewayId);
-        await createPrivateRouteTable(vpcId, subnetGroupArr); // all subnets are intentionally placed on private route table
 
         const securityGroupResponse = await createVpcSecurityGroup(vpcId);
         // wrapped in array beacuse createPostgresInstance expects array
