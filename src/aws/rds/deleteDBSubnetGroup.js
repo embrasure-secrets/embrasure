@@ -9,10 +9,11 @@ async function deleteRDSSubnetGroup() {
     });
 
     try {
-        const response = await client.send(command);
-        console.log('RDS subnet group deleted successfully:', response);
+        await client.send(command);
+        console.log('RDS subnet group deleted successfully.');
     } catch (error) {
         console.error('Error deleting RDS subnet group:', error);
+        throw error;
     }
 }
 

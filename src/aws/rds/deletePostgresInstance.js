@@ -15,8 +15,8 @@ async function deletePostgresInstance() {
 
     // Execute the delete command
     try {
-        const response = await client.send(deleteCommand);
-        console.log('RDS deletion initiated, This may take up to 10 minutes. Response:', response);
+        await client.send(deleteCommand);
+        console.log('RDS deletion initiated, This may take up to 10 minutes. Response');
 
         // Poll for the status of the deletion
         await waitForRdsSpinDown();
@@ -24,6 +24,7 @@ async function deletePostgresInstance() {
         console.log('RDS Deletion Complete!');
     } catch (error) {
         console.error('Error deleting RDS instance:', error);
+        throw error;
     }
 }
 

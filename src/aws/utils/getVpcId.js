@@ -27,6 +27,7 @@ async function getVpcId() {
         return vpcId;
     } catch (error) {
         console.error('Error getting VPC details:', error);
+        throw error;
     }
 }
 

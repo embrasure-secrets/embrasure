@@ -11,10 +11,11 @@ async function deleteVpcSecurityGroup(securityGroupId) {
 
     // Call the EC2 client to delete the security group
     try {
-        const response = await client.send(deleteSecurityGroupCommand);
-        console.log('security group deleted. response: ', response);
+        await client.send(deleteSecurityGroupCommand);
+        console.log('Security group deleted.');
     } catch (error) {
         console.error('Error deleting Security Group:', error);
+        throw error;
     }
 }
 

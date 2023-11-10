@@ -14,6 +14,7 @@ async function deleteIAMUser(username) {
         await deleteIAMUserPolicies(username);
         await deleteAccessKeysFromUser(username);
         await client.send(command);
+        console.log(`IAM user "${username}" deleted`);
     } catch (error) {
         console.error('Error in deleting IAM user: ', error);
         throw error;

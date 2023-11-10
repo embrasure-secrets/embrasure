@@ -17,7 +17,6 @@ async function getVpcSecurityGroupId(vpcId) {
     // Call the EC2 client to describe security groups
     try {
         const response = await client.send(describeSecurityGroupsCommand);
-        console.log('response: ', response);
         const securityGroups = response.SecurityGroups;
         let securityGroupIds;
 
@@ -33,6 +32,7 @@ async function getVpcSecurityGroupId(vpcId) {
         return securityGroupIds;
     } catch (error) {
         console.error('Error describing security groups:', error);
+        throw error;
     }
 }
 

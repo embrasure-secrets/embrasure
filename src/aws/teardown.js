@@ -18,17 +18,22 @@ call deleteVpc.js
 */
 
 async function teardown() {
-    await deleteIAMUser('logsworker');
-    await deletePostgresInstance();
-    await deleteRDSSubnetGroup();
-    const vpcId = await getVpcId();
+    try {
+        await deleteIAMUser('logsworker');
+        await deletePostgresInstance();
+        await deleteRDSSubnetGroup();
+        const vpcId = await getVpcId();
 
-    await deleteDBSubnets(vpcId);
-    const vpcSecurityGroupId = await getVpcSecurityGroupId(vpcId);
+        await deleteDBSubnets(vpcId);
+        const vpcSecurityGroupId = await getVpcSecurityGroupId(vpcId);
 
-    await deleteVpcSecurityGroup(vpcSecurityGroupId);
-    await deleteVpc(vpcId);
-    console.log('Teardown of Embrasure complete!');
+        await deleteVpcSecurityGroup(vpcSecurityGroupId);
+        await deleteVpc(vpcId);
+        console.log('Teardown of Embrasure complete!');
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
 export default teardown;

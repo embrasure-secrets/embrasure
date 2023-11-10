@@ -6,9 +6,11 @@ import createSubnetGroup from './rds/createDBSubnetGroup.js';
 import checkRDSStatus from './rds/checkRdsStatus.js';
 import getDBArnAndEndpoint from './utils/getDBArnAndEndpoint.js';
 import initNewUser from './iam/initNewUser.js';
+import getRegion from './utils/getRegion.js';
 
 async function init(username, password) {
     try {
+        const region = await getRegion();
         const vpcResponse = await createVpc();
         const vpcId = vpcResponse.Vpc.VpcId;
 
@@ -42,8 +44,8 @@ async function init(username, password) {
             SUBNET_1_ID: subnetGroupArr[1],
             LOGS_WORKER_ACCESS_KEY: accessKey,
             LOGS_WORKER_SECRET_ACCESS_KEY: secretAccessKey,
-            AWS_REGION: 'Whatever-aws-region-your-team-is-using',
-            REGION: 'Whatever-aws-region-your-team-is-using',
+            AWS_REGION: region,
+            REGION: region,
         };
 
         Object.keys(embrasureServerlessEnvVariables).forEach((key) => {
