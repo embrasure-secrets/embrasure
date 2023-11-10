@@ -30,5 +30,5 @@ async function teardown() {
     await deleteVpc(vpcId);
     console.log('Teardown of Embrasure complete!');
 }
-teardown();
+
 export default teardown;
