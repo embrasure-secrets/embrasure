@@ -5,6 +5,7 @@ import deleteDBSubnets from './vpc/deleteDBSubnets.js';
 import getVpcSecurityGroupId from './utils/getVpcSecurityGroupId.js';
 import deleteVpcSecurityGroup from './vpc/deleteVpcSecurityGroup.js';
 import deleteVpc from './vpc/deleteVpc.js';
+import deleteIAMUser from './iam/deleteIAMUser.js';
 
 /*
 Teardown flow: NOTE, YOU MUST RUN SERVERLESS REMOVE BEFORE USING THIS FILE
@@ -17,6 +18,7 @@ call deleteVpc.js
 */
 
 async function teardown() {
+    await deleteIAMUser('logsworker');
     await deletePostgresInstance();
     await deleteRDSSubnetGroup();
     const vpcId = await getVpcId();
