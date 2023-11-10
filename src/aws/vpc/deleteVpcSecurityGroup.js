@@ -15,6 +15,7 @@ async function deleteVpcSecurityGroup(securityGroupId) {
         console.log('security group deleted. response: ', response);
     } catch (error) {
         console.error('Error deleting Security Group:', error);
+        throw error;
     }
 }
 

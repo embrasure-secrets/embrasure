@@ -11,6 +11,7 @@ async function deleteVpc(vpcId) {
         console.log('VPC deleted successfully:', response);
     } catch (error) {
         console.error('Error deleting VPC:', error);
+        throw error;
     }
 }
 

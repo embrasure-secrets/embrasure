@@ -13,6 +13,7 @@ async function deleteRDSSubnetGroup() {
         console.log('RDS subnet group deleted successfully:', response);
     } catch (error) {
         console.error('Error deleting RDS subnet group:', error);
+        throw error;
     }
 }
 

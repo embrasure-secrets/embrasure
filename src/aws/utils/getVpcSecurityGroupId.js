@@ -33,6 +33,7 @@ async function getVpcSecurityGroupId(vpcId) {
         return securityGroupIds;
     } catch (error) {
         console.error('Error describing security groups:', error);
+        throw error;
     }
 }
 

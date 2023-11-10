@@ -24,6 +24,7 @@ async function deletePostgresInstance() {
         console.log('RDS Deletion Complete!');
     } catch (error) {
         console.error('Error deleting RDS instance:', error);
+        throw error;
     }
 }
 
