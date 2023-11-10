@@ -7,8 +7,8 @@ async function deleteVpc(vpcId) {
     });
 
     try {
-        const response = await client.send(command);
-        console.log('VPC deleted successfully:', response);
+        await client.send(command);
+        console.log('VPC deleted successfully.');
     } catch (error) {
         console.error('Error deleting VPC:', error);
         throw error;
