@@ -3,9 +3,6 @@ import createVpcSecurityGroup from './vpc/createVpcSecurityGroup.js';
 import createPostgresInstance from './rds/createPostgresInstance.js';
 import createSubnets from './vpc/createDBSubnets.js';
 import createSubnetGroup from './rds/createDBSubnetGroup.js';
-import createInternetGateway from './vpc/createInternetGateway.js';
-import createPublicRouteTable from './vpc/createPublicRouteTable.js';
-import createPrivateRouteTable from './vpc/createPrivateRouteTable.js';
 import checkRDSStatus from './rds/checkRdsStatus.js';
 import getDBArnAndEndpoint from './utils/getDBArnAndEndpoint.js';
 
