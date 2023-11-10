@@ -14,18 +14,15 @@ async function deleteDBSubnets(vpcId) {
         // Create the DeleteSubnetCommand
 
         // Call the EC2 client to delete the subnet
-        subnetDeletionCommands.forEach((deleteSubnetCommand) => {
-            client
-                .send(deleteSubnetCommand)
-                .then((response) => {
-                    console.log('Subnet deleted successfully:', response);
-                })
-                .catch((error) => {
-                    console.error('Error deleting subnet:', error);
-                });
+        const responses = await Promise.all(
+            subnetDeletionCommands.map((deleteSubnetCommand) => client.send(deleteSubnetCommand))
+        );
+
+        responses.forEach((response) => {
+            console.log('Subnet deleted successfully:', response);
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error deleting subnets:', error);
         throw error;
     }
 }
