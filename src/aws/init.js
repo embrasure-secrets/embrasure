@@ -30,18 +30,13 @@ async function init(username, password) {
         // create logs worker
         const { accessKey, secretAccessKey } = await initNewUser('logsworker');
         console.log(
-            'Go to https://github.com/Embrasure-Secrets/embrasure-server and clone into any directory'
+            '\n\n\nGo to https://github.com/Embrasure-Secrets/embrasure-server and clone into any directory\n\n\n'
         );
         console.log(
-            'Once you’ve done that, add a .env file to that embrasure-server root directory and copy this:'
+            'Once you’ve done that, add a .env file to your embrasure-server root directory and place the following inside it:\n'
         );
+
         const embrasureServerlessEnvVariables = {
-            DATABASE_NAME: 'secrets',
-            DB_USER: username,
-            DB_USER_PASSWORD: password,
-            DB_PORT: 5432,
-            API_PORT: 3000,
-            DB_HOST: endpoint,
             SECURITY_GROUP_ID: vpcSecurityGroupIds[0],
             SUBNET_0_ID: subnetGroupArr[0],
             SUBNET_1_ID: subnetGroupArr[1],
@@ -50,8 +45,26 @@ async function init(username, password) {
             AWS_REGION: 'Whatever-aws-region-your-team-is-using',
             REGION: 'Whatever-aws-region-your-team-is-using',
         };
+
         Object.keys(embrasureServerlessEnvVariables).forEach((key) => {
             console.log(`${key}=${embrasureServerlessEnvVariables[key]}`);
+        });
+
+        console.log(
+            '\n\n\nThen, create a .env file in your embrasure root directory and place the following inside it:\n'
+        );
+
+        const embrasureEnvVariables = {
+            DATABASE_NAME: 'secrets',
+            DB_USER: username,
+            DB_USER_PASSWORD: password,
+            DB_PORT: 5432,
+            DB_HOST: endpoint,
+            API_ENDPOINT: 'Replace this with the api endpoint after running serverless deploy',
+        };
+
+        Object.keys(embrasureEnvVariables).forEach((key) => {
+            console.log(`${key}=${embrasureEnvVariables[key]}`);
         });
     } catch (error) {
         console.error(error);
