@@ -15,6 +15,7 @@ import { Command } from 'commander';
 import {
     getAllSecrets,
     getAllUsers,
+    getAllLogs,
     getSecret,
     deleteSecret,
     updateSecret,
@@ -68,6 +69,13 @@ cli.command('gau')
         console.log(users);
     });
 
+cli.command('gal')
+    .alias('getAllLogs')
+    .description('Get all logs')
+    .action(async () => {
+        const logs = await getAllLogs();
+        console.log(logs);
+    });
 cli.command('gs')
     .alias('getSecret')
     .description('Get secret with specified name for your current project   environment')
