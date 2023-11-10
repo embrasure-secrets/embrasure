@@ -14,13 +14,9 @@ async function init(username, password) {
         const vpcResponse = await createVpc();
         const vpcId = vpcResponse.Vpc.VpcId;
 
-        const internetGatewayId = await createInternetGateway(vpcId);
-
         const subnetGroupArr = await createSubnets(vpcId);
 
         await createSubnetGroup(subnetGroupArr);
-        await createPublicRouteTable(vpcId, internetGatewayId);
-        await createPrivateRouteTable(vpcId, subnetGroupArr); // all subnets are intentionally placed on private route table
 
         const securityGroupResponse = await createVpcSecurityGroup(vpcId);
         // wrapped in array beacuse createPostgresInstance expects array
