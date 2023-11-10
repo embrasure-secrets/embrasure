@@ -20,7 +20,9 @@ const headers = {
 
 const NON_ADMIN_GROUP = 'embrasure-developer';
 
-if (await isUserInGroup(IAM_USERNAME, NON_ADMIN_GROUP)) {
+const isNonAdmin = await isUserInGroup(IAM_USERNAME, NON_ADMIN_GROUP);
+
+if (isNonAdmin) {
     headers['db-auth-token'] = await generateDBAuthToken(
         REGION,
         headers['db-host'],
@@ -37,15 +39,22 @@ export const getAllSecrets = async () => {
     return secrets;
 };
 
+// admin only
 export const getAllUsers = async () => {
+    if (isNonAdmin) return 'Access denied.';
+
     const { data: users } = await axios.get(`${ENDPOINT}/users`, { headers });
     return users;
 };
 
+// admin only
 export const getAllLogs = async () => {
+    if (isNonAdmin) return 'Access denied.';
+
     const { data: logs } = await axios.get(`${ENDPOINT}/logs`, { headers });
     return logs;
 };
+
 export const getSecret = async (key) => {
     const { data: secret } = await axios.get(`${ENDPOINT}/secrets/${key}`, {
         headers,
@@ -81,7 +90,10 @@ export const addSecret = async (key, value) => {
     return newSecret;
 };
 
+// admin only
 export const addUser = async (username, hasWritePermissions) => {
+    if (isNonAdmin) return 'Access denied.';
+
     const { data: usersCreated } = await axios.post(
         `${ENDPOINT}/users`,
         { username, hasWritePermissions },
@@ -95,7 +107,10 @@ export const showPermissions = async (username) => {
     return permissions;
 };
 
+// admin only
 export const editPermission = async (username, setWritePermissionTo) => {
+    if (isNonAdmin) return 'Access denied.';
+
     const { data: writePermission } = await axios.put(
         `${ENDPOINT}/users/:username`,
         { username, setWritePermissionTo },
@@ -104,7 +119,10 @@ export const editPermission = async (username, setWritePermissionTo) => {
     return writePermission;
 };
 
+// admin only
 export const deleteUser = async (username) => {
+    if (isNonAdmin) return 'Access denied.';
+
     const { data: usersDeleted } = await axios.delete(`${ENDPOINT}/users/${username}`, { headers });
     return usersDeleted;
 };
