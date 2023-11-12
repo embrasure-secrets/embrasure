@@ -109,8 +109,6 @@ export const showPermissions = async (username) => {
 
 // admin only
 export const editPermission = async (username, setWritePermissionTo) => {
-    if (isNonAdmin) return 'Access denied.';
-
     const { data: writePermission } = await axios.put(
         `${ENDPOINT}/users/:username`,
         { username, setWritePermissionTo },
