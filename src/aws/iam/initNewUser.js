@@ -18,7 +18,7 @@ async function initNewUser(IAMUsername) {
             await addUserToUserGroup('embrasure-developer', IAMUsername);
         }
         const accessKeys = await generateAccessKeys(IAMUsername);
-        console.log(`GIVE AWS ACCESS KEYS TO ${IAMUsername}`);
+        console.log(`GIVE AWS ACCESS KEYS TO ${IAMUsername}: `, accessKeys);
         const dbPolicyARN = await createNewDBPolicy('embrasure-database-v2', IAMUsername);
         const groupsPolicyARN = await createNewUserGroupsPolicy(IAMUsername);
         await attachPolicyToUser(dbPolicyARN, IAMUsername);
