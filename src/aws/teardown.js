@@ -6,6 +6,7 @@ import getVpcSecurityGroupId from './utils/getVpcSecurityGroupId.js';
 import deleteVpcSecurityGroup from './vpc/deleteVpcSecurityGroup.js';
 import deleteVpc from './vpc/deleteVpc.js';
 import deleteIAMUser from './iam/deleteIAMUser.js';
+import getUsersInGroup from './utils/getUsersInGroup.js';
 
 /*
 Teardown flow: NOTE, YOU MUST RUN SERVERLESS REMOVE BEFORE USING THIS FILE
@@ -19,6 +20,10 @@ call deleteVpc.js
 
 async function teardown() {
     try {
+        const users = await getUsersInGroup('embrasure-developer');
+
+        const userPromises = users.map((user) => deleteIAMUser(user));
+        await Promise.all([userPromises]);
         await deleteIAMUser('logsworker');
         await deletePostgresInstance();
         await deleteRDSSubnetGroup();

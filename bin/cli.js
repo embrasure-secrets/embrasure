@@ -90,8 +90,9 @@ cli.command('as')
     .description('Add secret with specified name and value')
     .option('-n --name <name>', 'Specify secret name')
     .option('-v --value <value>', 'Specify secret value')
-    .action(({ name, value }) => {
-        addSecret(name, value);
+    .action(async ({ name, value }) => {
+        await addSecret(name, value);
+        console.log(`"${name}" secret added.`);
     });
 
 cli.command('us')
@@ -99,16 +100,18 @@ cli.command('us')
     .description('Update secret with specified name')
     .option('-n --name <name>', 'Specify secret name')
     .option('-v --value <value>', 'Specify secret value')
-    .action(({ name, value }) => {
-        updateSecret(name, value);
+    .action(async ({ name, value }) => {
+        await updateSecret(name, value);
+        console.log(`"${name}" secret updated.`);
     });
 
 cli.command('ds')
     .alias('deleteSecret')
     .description('Delete secret with specified name')
     .option('-n --name <name>', 'Specify secret name')
-    .action(({ name }) => {
-        deleteSecret(name);
+    .action(async ({ name }) => {
+        await deleteSecret(name);
+        console.log(`"${name}" secret deleted.`);
     });
 
 cli.command('du')
@@ -117,7 +120,8 @@ cli.command('du')
     .option('-n --name <name>', 'Specify user name')
     .action(async ({ name }) => {
         await deleteIAMUser(name);
-        deleteUser(name);
+        await deleteUser(name);
+        console.log(`"${name}" user deleted.`);
     });
 
 cli.command('r')
@@ -142,8 +146,8 @@ cli.command('au')
         const nameLowercase = name.toLowerCase();
         try {
             await initNewUser(nameLowercase);
-            const usersCreated = await addUser(nameLowercase, writePermissions);
-            console.log(usersCreated);
+            await addUser(nameLowercase, writePermissions);
+            console.log(`"${name}" user created.`);
         } catch (error) {
             console.error("Couldn't add new user");
         }
