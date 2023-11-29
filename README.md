@@ -9,7 +9,7 @@ Embrasure encrypts secrets at rest in the secrets database and also utilizes TLS
 
 ### Pre Embrasure download setup
 
-If you regularly use AWS you may already have the following but embrasure relies on the .aws folder to determine what aws account is being used. This folder must be created in your machines home directory, ==NOT YOUR PROJECT HOME DIRECTORY==. If your not sure what your machines home directory is, run the following script in your terminal:
+If you regularly use AWS you may already have the following but embrasure relies on the .aws folder to determine what aws account is being used. This folder must be created in your machines home directory, **NOT YOUR PROJECT HOME DIRECTORY**. If your not sure what your machines home directory is, run the following script in your terminal:
 
 ```bash
 cd ~
@@ -18,7 +18,7 @@ pwd
 
 Create a folder called ".aws" in your home directory and create 2 files: "credentials" and "config" (note that files have no file extension and are all lowercase). Please fill both files with your aws account information as shown below:
 
-==NOTE: THE TEAM ADMIN WILL PROVIDE THE AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY TO THEIR TEAMMATES DURING THE SETUP OF EMBRASURE. TEAMMATES SHOULD NOT USE THEIR AWS ACCOUNT CREDENTIALS IF THEY HAVE THEM!==
+**NOTE: THE TEAM ADMIN WILL PROVIDE THE AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY TO THEIR TEAMMATES DURING THE SETUP OF EMBRASURE. TEAMMATES SHOULD NOT USE THEIR AWS ACCOUNT CREDENTIALS IF THEY HAVE THEM!**
 
 credentials (do not use quotation marks):
 [default]
@@ -65,7 +65,7 @@ Usage is dependent on what accessibility is granted to a user by the admin but a
 // Meta Commands
 embrasure init --username <username> --password <password> // Initialize backend architecture. Run this only once.
 
-embrasure teardown // Delete backend architecture. ==NOTE: YOU MUST RUN SERVERLESS REMOVE BEFORE RUNNING THIS COMMAND OR IT WILL NOT WORK==
+embrasure teardown // Delete backend architecture. NOTE: YOU MUST RUN SERVERLESS REMOVE BEFORE RUNNING THIS COMMAND OR IT WILL NOT WORK
 
 embrasure run --file <file> // Run file with secrets injected
 
