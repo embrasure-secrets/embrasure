@@ -80,7 +80,7 @@ embrasure updateSecret --name <name> --value <value> // updates the value of a s
 
 embrasure deleteSecret --name <name> // deletes a specified secret from the secrets manager is user has delete secret access
 
-// Admin only user interaction commands
+// Admin only user interaction and access audit log commands
 embrasure addUser --name <name> --writePermissions=[boolean] // Add a user to your organization and specify read and write permission or only read permission
 
 embrasure showPermissions --name <name> // Show read/write permissions of a user
