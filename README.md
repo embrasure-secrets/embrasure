@@ -9,7 +9,7 @@ Embrasure encrypts secrets at rest in the secrets database and also utilizes TLS
 
 ### Pre Embrasure download setup
 
-If you regularly use AWS you may already have the following but embrasure relies on the .aws folder to determine what aws account is being used. This folder must be created in your machines home directory, NOT YOUR PROJECT HOME DIRECTORY. If your not sure what your machines home directory is, run the following script in your terminal:
+If you regularly use AWS you may already have the following but embrasure relies on the .aws folder to determine what aws account is being used. This folder must be created in your machines home directory, ==NOT YOUR PROJECT HOME DIRECTORY==. If your not sure what your machines home directory is, run the following script in your terminal:
 
 ```bash
 cd ~
@@ -18,7 +18,8 @@ pwd
 
 Create a folder called ".aws" in your home directory and create 2 files: "credentials" and "config" (note that files have no file extension and are all lowercase). Please fill both files with your aws account information as shown below:
 
-NOTE: THE TEAM ADMIN WILL PROVIDE THE AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY TO THEIR TEAMMATES DURING THE SETUP OF EMBRASURE. TEAMMATES SHOULD NOT USE THEIR AWS ACCOUNT CREDENTIALS IF THEY HAVE THEM!
+==NOTE: THE TEAM ADMIN WILL PROVIDE THE AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY TO THEIR TEAMMATES DURING THE SETUP OF EMBRASURE. TEAMMATES SHOULD NOT USE THEIR AWS ACCOUNT CREDENTIALS IF THEY HAVE THEM!==
+
 credentials (do not use quotation marks):
 [default]
 aws_access_key_id = your_aws_access_key_id_here
@@ -33,15 +34,14 @@ Now you are all set up to install embrasure!
 
 ### Embrasure download setup
 
-The following setup is specifically for the team leader/admin! If you are not the team leader, please go to the Embrasure User Repo and follow the installation steps there instead!
-
-Run the following commands in the root directory of the project you wish to use Embrasure Secrets for. They will build all of the aws resources embrasure requires to work in the aws account you have in your ".aws/credentials" file and account you have chosen (if you have multiple accounts in the credentials file) when the commands are run.
+Run the following commands in the root directory of the project you wish to use Embrasure Secrets for. They will install all of Embrasure's dependencies and allow the usage of Embrasure's CLI commands. The final command should only be run by the admin which will have the admin build all of the aws resources embrasure requires to work in the aws account you have in your ".aws/credentials" file and account you have chosen (if you have multiple accounts in the credentials file) when the command is run.
 
 ```bash
 npm install embrasure // install dependencies into your project
 npm link // enables embrasure's CLI Commands in your dev environment
 embrasure/src/utils/aws-init/init.js // builds aws architecture for secure secrets storage
 
+embrasure init // ONLY ADMIN RUNS THIS COMMAND!! Builds Embrasure cloud architecture that your team will use to store and interact with secrets
 // GO TO EMBRASURE SERVERLESS REPO TO FINISH EMBRASURE PROJECT SETUP
 ```
 
@@ -49,32 +49,52 @@ embrasure/src/utils/aws-init/init.js // builds aws architecture for secure secre
 
 Embrasure fully builds all of the aws dependencies it requires to work and makes no assumptions regarding what resources are available to connect to in the admins aws account. Because of this, the following aws resources are built:
 
-x1 VPC (virtual private cloud)
-x3 Subnets
-x2 Route Tables
-x1 VPC Security Group
-x1 Internet Gateway
-x1 Subnet Group
-x1 RDS Database running PostgreSQL
-x1 Lambda (built from setup in "Embrasure Serverless" Repo)
-x1 API Gateway (built from setup in "Embrasure Serverless" Repo)
+-   x1 VPC (virtual private cloud)
+-   x2 Subnets
+-   x1 VPC Security Group
+-   x1 Subnet Group
+-   x1 RDS Database running PostgreSQL
+-   x1 Lambda (built from setup in "Embrasure Serverless" Repo)
+-   x1 API Gateway (built from setup in "Embrasure Serverless" Repo)
 
 ## Usage
 
 Usage is dependent on what accessibility is granted to a user by the admin but all embrasure commands are listed below:
 
 ```node
+// Meta Commands
+embrasure init --username <username> --password <password> // Initialize backend architecture. Run this only once.
+
+embrasure teardown // Delete backend architecture. ==NOTE: YOU MUST RUN SERVERLESS REMOVE BEFORE RUNNING THIS COMMAND OR IT WILL NOT WORK==
+
+embrasure run --file <file> // Run file with secrets injected
+
 // Secrets database interaction commands
 embrasure getAllSecrets // returns all secrets a user has access to in a development environment
+
 embrasure getSecret --name <secretName> // returns the value of a specified secret if user has access to that secret
+
 embrasure addSecret --name <name> --value <value> // adds a secret to the secrets manager if user has create secret access
+
 embrasure updateSecret --name <name> --value <value> // updates the value of a specified secret if user has update secret access
+
 embrasure deleteSecret --name <name> // deletes a specified secret from the secrets manager is user has delete secret access
 
 // Admin only user interaction commands
-embrasure createUser
-embrasure addPermission
-embrasure removeUser
+embrasure addUser --name <name> --writePermissions=[boolean] // Add a user to your organization and specify read and write permission or only read permission
+
+embrasure showPermissions --name <name> // Show read/write permissions of a user
+
+embrasure editPermission --name <name> --setWritePermission // Edit read/write permission for a user
+
+embrasure deleteUser --name <name> // Delete user with specified name
+
+embrasure getAllUsers // Get all users for your current project environment
+
+embrasure getAllLogs // Get all logs
+
+embrasure deleteUser --name <name> // Delete user with specified name
+
 ```
 
 ## Contributing
