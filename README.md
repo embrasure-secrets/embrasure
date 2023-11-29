@@ -1,11 +1,9 @@
 # Embrasure
 
-Note: This repo is for the Administrator of an engineering team! If you are not the head of your team and your team is planning to use embrasure for secrets management, please see the Embrasure User Repo!
-
 Embrasure is a lightweight, open source tool for managing application secrets across a small development team.
 Embrasure is fully built in AWS in the free tier and builds all of its own architecture so as to not affect any existing aws resources a user may or may not have. Embrasure works as a wrapper that wraps your project, aquires all secrets your project uses, and then runs your project with the necessary secrets injected into their desired location. This eliminates hard coding sensitive information into your codebase and also acts as a single secrets repository to prevent secret sprawl in your teams project environment.
 
-Embrasure encrypts secrets at rest in the secrets database and also utilizes TLS/SSL to encrypt your secrets while pulling them down from their cloud storage database to keep your teams secrets a secret. Embrasure also verifies the identity of all users attempting to work with embrasure to determine if they have access before sending any information anywhere. This is all done using aws's high quality security tools along with aws IAM to verify the identity of anyone trying to access your secrets. All this is to say that if you trust amazon to keep your sensitive information secure, then you can trust Embrasure as well!
+Embrasure encrypts secrets at rest in the secrets database and also utilizes TLS/HTTPS to encrypt your secrets while pulling them down from their cloud storage database to keep your teams secrets a secret. Embrasure also verifies the identity of all users attempting to work with embrasure to determine if they have access before sending any information anywhere. This is all done using aws's high quality security tools along with aws IAM to verify the identity of anyone trying to access your secrets. All this is to say that if you trust amazon to keep your sensitive information secure, then you can trust Embrasure as well!
 
 ## Installation
 
@@ -20,6 +18,7 @@ pwd
 
 Create a folder called ".aws" in your home directory and create 2 files: "credentials" and "config" (note that files have no file extension and are all lowercase). Please fill both files with your aws account information as shown below:
 
+NOTE: THE TEAM ADMIN WILL PROVIDE THE AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY TO THEIR TEAMMATES DURING THE SETUP OF EMBRASURE. TEAMMATES SHOULD NOT USE THEIR AWS ACCOUNT CREDENTIALS IF THEY HAVE THEM!
 credentials (do not use quotation marks):
 [default]
 aws_access_key_id = your_aws_access_key_id_here
