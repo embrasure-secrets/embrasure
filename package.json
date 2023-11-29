@@ -1,6 +1,6 @@
 {
     "name": "embrasure",
-    "version": "1.0.0",
+    "version": "1.0.10",
     "description": "Embrasure Secrets Manager Core Features",
     "main": "index.js",
     "bin": {
