@@ -134,7 +134,7 @@ cli.command('r')
             (secretsObj, { key, value }) => ({ ...secretsObj, [key]: value }),
             {}
         );
-        injectSecrets(file, env);
+        await injectSecrets(file, env);
     });
 
 cli.command('au')
